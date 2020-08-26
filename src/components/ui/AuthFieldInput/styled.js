@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
+export const InputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export const IconWrapper = styled.div`
+  position: absolute;
+  top: 13px;
+  left: 17px;
+  color: #667784;
+`;
+
 export const Input = styled.input`
   width: 100%;
   margin-bottom: 15px;
