@@ -1,0 +1,47 @@
+.legalPage {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  background: hsla(0, 0%, 100%, 0.85);
+  max-width: 1200px;
+  min-height: 400px;
+  padding: 30px 40px;
+  align-items: flex-start;
+  margin: 0 auto;
+}
+
+.legalPage .formContainer h2 {
+  margin: 12px 0;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.legalPage .formContainer p.sub {
+  padding-left: 24px;
+}
+
+.legalPage .formContainer p.date {
+  margin-bottom: 24px;
+}
+
+.legalPage .formContainer p {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+
+.legalPage .formContainer h3 {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.legalPage .formContainer h4 {
+  font-weight: 700;
+}

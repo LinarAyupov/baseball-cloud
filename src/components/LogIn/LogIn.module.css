@@ -1,0 +1,104 @@
+.loginView {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  padding: 16px;
+}
+
+.formContainer {
+  background: hsla(0, 0%, 100%, 0.8);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 450px;
+}
+
+.formHeader {
+  flex-direction: column;
+  margin-bottom: 48px;
+}
+
+.formTitle {
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 400;
+  -webkit-text-align: center;
+  text-align: center;
+  color: #667784;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+
+.fromSubtitle {
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 400;
+  -webkit-text-align: center;
+  text-align: center;
+  color: #667784;
+  font-size: 16px;
+  margin: 0;
+}
+
+.inputsContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.inputsItem {
+  width: 100%;
+  margin-bottom: 15px;
+  display: block;
+  height: 50px;
+  border-radius: 4px;
+  background-color: #eff1f3;
+  padding: 6px 12px 10px 37px;
+  font-size: 16px;
+  line-height: 1.13;
+  font-weight: 400;
+  color: #667784;
+  border: 1px solid transparent;
+}
+
+.inputsItem::placeholder {
+  transition: color 0.3s ease;
+}
+
+.inputsItem:focus::placeholder {
+  color: transparent;
+}
+
+.submitBtn {
+  padding-top: 15px;
+  padding-bottom: 17px;
+  width: 100%;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin-bottom: 15px;
+  color: #ffffff;
+  font-weight: 400;
+  border: solid 1px transparent;
+  box-shadow: 0 0 4px 0 rgba(72, 187, 255, 0);
+  background-color: #48bbff;
+  outline: none;
+}
+
+.submitBtn:hover {
+  box-shadow: 0 0 4px 0 rgba(72, 187, 255, 0.8);
+  border: solid 1px transparent;
+  background-color: #48bbff;
+}
+.submitBtn[disabled] {
+  background-color: #75a4bf;
+}
+.submitErrMassage {
+  color: #f05f62;
+}
