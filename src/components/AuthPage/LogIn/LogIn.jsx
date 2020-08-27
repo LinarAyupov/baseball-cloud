@@ -1,21 +1,21 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
-import { InputsWrapper, Forgotten, FormFooter, FooterLink } from "./styled";
+import { InputsWrapper, Forgotten } from "./styled";
 import AuthContainer from "../../commons/AuthContainer";
 import AuthFormHeader from "../../commons/AuthFormHeader";
-import { validateRequiredField } from "../../../utils/form-validators";
+import { loginFieldRequired } from "../../../utils/form-validators";
 import AuthFieldInput from "../../ui/AuthFieldInput";
 import SubmitButton from "../../ui/SubmitButton";
 import Link from "../../ui/Link";
+import AuthFormFooter from "../../commons/AuthFormFooter/AuthFormFooter";
+import { connect } from "react-redux";
+import { singIn } from "../../../actions/authActions";
 
-const LogIn = () => {
-  const onSubmitLogin = (value) => {
-    setTimeout(() => console.log(value), 1000);
-  };
+const LogIn = ({ singIn, isFetching, unauthorized }) => {
   return (
     <Form
-      onSubmit={onSubmitLogin}
-      render={({ handleSubmit, submitting }) => (
+      onSubmit={singIn}
+      render={({ handleSubmit }) => (
         <AuthContainer>
           <AuthFormHeader
             title="Welcome to BaseballCloud!"
@@ -25,32 +25,46 @@ const LogIn = () => {
             <Field
               name="email"
               type="email"
-              validate={validateRequiredField}
+              validate={loginFieldRequired}
               placeholder="Email"
               render={AuthFieldInput}
               icon="user"
+              autoComplete="address-line1"
             />
             <Field
               name="password"
               type="password"
-              validate={validateRequiredField}
+              autoComplete="current-password"
+              validate={loginFieldRequired}
               placeholder="Password"
               render={AuthFieldInput}
               icon="lock"
+              unauthorized={unauthorized}
+              isShowError={true}
             />
-            <SubmitButton type="submit">Sign In</SubmitButton>
+            <SubmitButton type="submit" disabled={isFetching}>
+              Sign In
+            </SubmitButton>
             <Forgotten>
               <Link to="forgotten">Forgotten password?</Link>
             </Forgotten>
           </InputsWrapper>
-          <FormFooter>
-            Don’t have an account?{" "}
-            <FooterLink to="registration">Sing Up</FooterLink>
-          </FormFooter>
+          <AuthFormFooter
+            description="Don’t have an account?"
+            linkDescription="Sing Up"
+            to="/registration"
+          />
         </AuthContainer>
       )}
     />
   );
 };
 
-export default LogIn;
+const mapStateToProps = (state) => {
+  return {
+    isFetching: state.authData.isFetching,
+    unauthorized: state.authData.unauthorized,
+  };
+};
+
+export default connect(mapStateToProps, { singIn })(LogIn);

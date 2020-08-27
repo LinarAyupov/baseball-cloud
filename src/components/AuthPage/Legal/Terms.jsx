@@ -261,7 +261,7 @@ const Terms = () => {
           following information in writing (see 17 U.S.C 512(c)(3) for further
           detail):
         </p>
-        <p calssName={styles.sub}>
+        <p className={styles.sub}>
           an electronic or physical signature of the person authorized to act on
           behalf of the owner of the copyright's interest;
           <br />

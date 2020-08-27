@@ -12,11 +12,15 @@ export const Button = styled.button`
   font-weight: 400;
   border: solid 1px transparent;
   box-shadow: 0 0 4px 0 rgba(72, 187, 255, 0);
+  border-radius: 4px;
   background-color: #48bbff;
   outline: none;
   &:hover {
     box-shadow: 0 0 4px 0 rgba(72, 187, 255, 0.8);
     border: solid 1px transparent;
     background-color: #48bbff;
+  }
+  &[disabled] {
+    background-color: #b3d4fc;
   }
 `;

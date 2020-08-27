@@ -1,11 +1,12 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
-import { validateRequiredField } from "../../../utils/form-validators";
+import { fieldRequired } from "../../../utils/form-validators";
 import AuthContainer from "../../commons/AuthContainer";
 import AuthFormHeader from "../../commons/AuthFormHeader";
 import AuthFieldInput from "../../ui/AuthFieldInput";
-import { InputsWrapper, FormFooter, FooterLink } from "./styled";
+import { InputsWrapper } from "./styled";
 import SubmitButton from "../../ui/SubmitButton";
+import AuthFormFooter from "../../commons/AuthFormFooter/AuthFormFooter";
 
 const Forgotten = () => {
   const onSubmitEmail = (value) => {
@@ -24,15 +25,19 @@ const Forgotten = () => {
             <Field
               name="email"
               type="email"
-              validate={validateRequiredField}
+              autoComplete="address-line1"
               placeholder="Email"
+              validate={fieldRequired}
               render={AuthFieldInput}
               icon="user"
+              isShowError={true}
             />
             <SubmitButton type="submit">Submit</SubmitButton>
-            <FormFooter>
-              Remember password? <FooterLink to="/login">Sing In</FooterLink>
-            </FormFooter>
+            <AuthFormFooter
+              description="Remember password?"
+              linkDescription="Sing In"
+              to="/login"
+            />
           </InputsWrapper>
         </AuthContainer>
       )}

@@ -7,6 +7,7 @@ import Terms from "./components/AuthPage/Legal/Terms";
 import Privacy from "./components/AuthPage/Legal/Privacy";
 import LogIn from "./components/AuthPage/LogIn";
 import Forgotten from "./components/AuthPage/Forgotten";
+import Registration from "./components/AuthPage/Registration/Registration";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <MainContainer>
         <Header />
         <ContentWrapper>
+          <Route path="/registration" render={() => <Registration />} />
           <Route path="/forgotten" render={() => <Forgotten />} />
           <Route path="/login" render={() => <LogIn />} />
           <Route path="/legal/terms" render={() => <Terms />} />
