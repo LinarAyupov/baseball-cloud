@@ -1,30 +1,27 @@
 import React from "react";
-import { MainContainer, ContentWrapper } from "./styled";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { BrowserRouter, Route } from "react-router-dom";
-import Terms from "./components/AuthPage/Legal/Terms";
-import Privacy from "./components/AuthPage/Legal/Privacy";
-import LogIn from "./components/AuthPage/LogIn";
-import Forgotten from "./components/AuthPage/Forgotten";
-import Registration from "./components/AuthPage/Registration/Registration";
+import { MainContainer } from "./styled";
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
+import { BrowserRouter } from "react-router-dom";
+import AuthPage from "./components/auth/AuthPage/AuthPage";
+import { connect } from "react-redux";
 
-function App() {
+function App({ isAuth }) {
   return (
     <BrowserRouter>
       <MainContainer>
         <Header />
-        <ContentWrapper>
-          <Route path="/registration" render={() => <Registration />} />
-          <Route path="/forgotten" render={() => <Forgotten />} />
-          <Route path="/login" render={() => <LogIn />} />
-          <Route path="/legal/terms" render={() => <Terms />} />
-          <Route path="/legal/privacy" render={() => <Privacy />} />
-        </ContentWrapper>
+        <AuthPage />
         <Footer />
       </MainContainer>
     </BrowserRouter>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authData.isAuth,
+  };
+};
+
+export default connect(mapStateToProps, {})(App);

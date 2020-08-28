@@ -3,7 +3,7 @@ import { Form, Field } from "react-final-form";
 import { InputsWrapper, Forgotten } from "./styled";
 import AuthContainer from "../../commons/AuthContainer";
 import AuthFormHeader from "../../commons/AuthFormHeader";
-import { loginFieldRequired } from "../../../utils/form-validators";
+import FormValidators from "../../../utils/FormValidators";
 import AuthFieldInput from "../../ui/AuthFieldInput";
 import SubmitButton from "../../ui/SubmitButton";
 import Link from "../../ui/Link";
@@ -25,7 +25,7 @@ const LogIn = ({ singIn, isFetching, unauthorized }) => {
             <Field
               name="email"
               type="email"
-              validate={loginFieldRequired}
+              validate={FormValidators.loginFieldRequired}
               placeholder="Email"
               render={AuthFieldInput}
               icon="user"
@@ -35,7 +35,7 @@ const LogIn = ({ singIn, isFetching, unauthorized }) => {
               name="password"
               type="password"
               autoComplete="current-password"
-              validate={loginFieldRequired}
+              validate={FormValidators.loginFieldRequired}
               placeholder="Password"
               render={AuthFieldInput}
               icon="lock"

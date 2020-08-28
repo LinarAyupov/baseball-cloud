@@ -1,11 +1,13 @@
 import axios from "axios";
-import { getHeadersDataFromStorage } from "../StorageServices";
+import StorageServices from "../StorageServices";
 
 class ApiServices {
   axiosInstance = async () => {
-    const { accessToken, client, uid } = await JSON.parse(
-      getHeadersDataFromStorage()
-    );
+    const {
+      accessToken,
+      client,
+      uid,
+    } = await StorageServices.getHeadersDataFromStorage();
     let headers = {
       "Access-Control-Expose-Headers": "Access-Token, Uid, Client",
       "Content-Type": "application/json; charset=utf-8",
@@ -36,11 +38,9 @@ class ApiServices {
     }
   };
   singUp = async ({ userData }) => {
-    console.log(userData);
     try {
       const request = await this.axiosInstance();
       const response = await request.post("/auth", userData);
-      console.log(response);
       return response;
     } catch (err) {
       throw err;

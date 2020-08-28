@@ -5,7 +5,7 @@ import {
   UNAUTHORIZED,
 } from "../reducers/authReducer";
 import ApiServices from "../utils/ApiServices";
-import { setHeadersDataToStore } from "../utils/StorageServices";
+import StorageServices from "../utils/StorageServices";
 
 const toggleIsFetching = () => {
   return {
@@ -42,7 +42,7 @@ export const singIn = (userData) => {
     dispatch(toggleIsFetching());
     try {
       const { data, headers } = await ApiServices.singIn({ userData });
-      await setHeadersDataToStore({ headers });
+      await StorageServices.setHeadersDataToStore({ headers });
       dispatch(fetchProfileData({ data }));
       dispatch(onChangeAuth());
       dispatch(toggleUnauthorized(true));
@@ -59,7 +59,7 @@ export const singUp = ({ userData }) => {
     dispatch(toggleIsFetching());
     try {
       const { data, headers } = await ApiServices.singUp({ userData });
-      await setHeadersDataToStore({ headers });
+      await StorageServices.setHeadersDataToStore({ headers });
       dispatch(fetchProfileData({ data }));
       dispatch(onChangeAuth());
       dispatch(toggleUnauthorized(true));

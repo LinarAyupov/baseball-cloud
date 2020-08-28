@@ -3,7 +3,7 @@ import { Form, Field } from "react-final-form";
 import AuthContainer from "../../commons/AuthContainer";
 import AuthFieldInput from "../../ui/AuthFieldInput";
 import SubmitButton from "../../ui/SubmitButton";
-import { fieldRequired, confirmValidate } from "../../../utils/form-validators";
+import FormValidators from "../../../utils/FormValidators";
 import {
   TypeButtonsWrapper,
   CheckedIcon,
@@ -30,7 +30,7 @@ const Registration = ({ singUp, isFetching, unauthorized }) => {
   return (
     <Form
       onSubmit={submitRegistration}
-      validate={confirmValidate}
+      validate={FormValidators.confirmValidate}
       render={({ handleSubmit }) => (
         <AuthContainer>
           <TypeButtonsWrapper>
@@ -57,7 +57,7 @@ const Registration = ({ singUp, isFetching, unauthorized }) => {
             <Field
               name="email"
               type="email"
-              validate={fieldRequired}
+              validate={FormValidators.fieldRequired}
               placeholder="Email"
               render={AuthFieldInput}
               icon="user"

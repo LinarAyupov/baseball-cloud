@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Link from "../ui/Link";
+import Link from "../../components/ui/Link";
 
 export const FooterWrapper = styled.footer`
   grid-area: ft;
