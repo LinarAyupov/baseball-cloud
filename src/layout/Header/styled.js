@@ -135,6 +135,6 @@ export const DropdownLink = styled(Link)`
     color: #788b99;
   }
   &:hover {
-    background-color: #d4e8ff;
+    background-color: #ecf8ff;
   }
 `;

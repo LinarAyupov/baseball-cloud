@@ -1,26 +1,16 @@
 import React from "react";
-import { MainContainer } from "./styled";
-import Header from "./layout/Header";
-import Footer from "./layout/Footer";
-import { BrowserRouter } from "react-router-dom";
-import AuthPage from "./components/auth/AuthPage/AuthPage";
 import { connect } from "react-redux";
+import { getIsAuth } from "./selectors/selectors";
+import AuthPage from "./components/auth/AuthPage/AuthPage";
+import ProfilePage from "./components/profile/ProfilePage";
 
 function App({ isAuth }) {
-  return (
-    <BrowserRouter>
-      <MainContainer>
-        <Header />
-        <AuthPage />
-        <Footer />
-      </MainContainer>
-    </BrowserRouter>
-  );
+  return <> {true ? <ProfilePage isAuth={true} /> : <AuthPage />}</>;
 }
 
 const mapStateToProps = (state) => {
   return {
-    isAuth: state.authData.isAuth,
+    isAuth: getIsAuth(state),
   };
 };
 
