@@ -58,4 +58,16 @@ export const Input = styled.input`
   &:focus::placeholder {
     color: transparent;
   }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+`;
+export const ErrorMassage = styled.span`
+  color: #f05f62;
 `;

@@ -1,6 +1,7 @@
 import React from "react";
 import { SidebarContainer } from "../../../commonStyles/styled";
 import { Form, Field } from "react-final-form";
+import FormValidators from "../../../utils/FormValidators";
 import {
   AvatarFormWrap,
   AvatarWrap,
@@ -19,6 +20,9 @@ import FormTextArea from "../../ui/FormTextArea";
 
 const EditSidebar = () => {
   const click = (value) => console.log(value);
+  const onChange = (e) => {
+    return e.label;
+  };
   return (
     <SidebarContainer>
       <AvatarFormWrap>
@@ -28,8 +32,9 @@ const EditSidebar = () => {
       </AvatarFormWrap>
       <Form
         onSubmit={click}
+        validate={FormValidators.SidebarValidator}
         render={({ handleSubmit }) => (
-          <FormWrap>
+          <FormWrap onSubmit={handleSubmit}>
             <ShortInputsWrap style={{ marginBottom: "10px" }}>
               <Field
                 name="first_name"
@@ -50,10 +55,11 @@ const EditSidebar = () => {
               name="position"
               placeholder="Position in Game *"
               component={FormSelect}
+              inputOnChange={onChange}
             />
             <Field
               name="position2"
-              placeholder="Secondary Position in Game *"
+              placeholder="Secondary Position in Game"
               component={FormSelect}
             />
 
@@ -61,29 +67,31 @@ const EditSidebar = () => {
 
             <Field
               name="age"
-              type="text"
+              type="number"
               placeholder="Age *"
               component={FormTextInput}
             />
             <ShortInputsWrap>
               <Field
                 name="feet"
-                type="text"
+                type="number"
                 placeholder="Feet *"
                 component={FormTextInput}
+                validate={FormValidators.heightValidate}
                 typeEdit="short"
               />
               <Field
                 name="inches"
-                type="text"
+                type="number"
                 placeholder="Inches"
                 component={FormTextInput}
+                validate={FormValidators.inchesValidate}
                 typeEdit="short"
               />
             </ShortInputsWrap>
             <Field
               name="weight"
-              type="text"
+              type="number"
               placeholder="Weight *"
               component={FormTextInput}
             />
@@ -129,7 +137,7 @@ const EditSidebar = () => {
             />
             <ButtonsWrap>
               <CancelBtn>Cancel</CancelBtn>
-              <SaveBtn onClick={handleSubmit}>Save</SaveBtn>
+              <SaveBtn type="submit">Save</SaveBtn>
             </ButtonsWrap>
           </FormWrap>
         )}

@@ -34,6 +34,50 @@ class FormValidators {
     }
     return errors;
   };
+
+  SidebarValidator = (value) => {
+    const errors = {};
+    if (!value.first_name) {
+      errors.first_name = "First Name Required";
+    }
+    if (!value.last_name) {
+      errors.last_name = "Last Name Required";
+    }
+    if (!value.age) {
+      errors.age = "Age Required";
+    }
+    if (!value.feet) {
+      errors.feet = "Feet Required";
+    }
+    if (!value.bats_hand) {
+      errors.bats_hand = "Bats Required";
+    }
+    if (!value.throws_hand) {
+      errors.throws_hand = "Throws Required";
+    }
+    if (!value.position) {
+      errors.position = "Position Required";
+    }
+    if (!value.weight) {
+      errors.weight = "Weigth Required";
+    }
+
+    return errors;
+  };
+  heightValidate = (value) => {
+    if (!value || value > 7) {
+      return "Maximum height is 7";
+    } else {
+      return undefined;
+    }
+  };
+  inchesValidate = (value) => {
+    if (!value || value > 11 || value < 0) {
+      return "Inches can be from 0 to 11";
+    } else {
+      return undefined;
+    }
+  };
 }
 
 export default new FormValidators();

@@ -1,16 +1,39 @@
 import React, { useState } from "react";
-import { SingleSelect, SelectWrap, Label } from "./styled";
+import { SingleSelect, SelectWrap, Label, ErrorMassage } from "./styled";
 
-const FormSelect = ({ input, placeholder, selectType = "", isMulti }) => {
+const FormSelect = ({
+  input,
+  placeholder,
+  selectType = "",
+  isMulti,
+  meta,
+  options,
+}) => {
+  const { onChange } = input;
   const [isActive, onChangeIsActive] = useState(false);
-  const opts = [
-    { label: "32ecfsdc", value: "1" },
-    { label: "wefwe", value: "2" },
-    { label: "234sd", value: "3" },
-  ];
+  const [selectedOption, setSelectedOpion] = useState("");
+  let opts = [];
+  // if(options) {
+  //   opts = options.map(opt => {value: {...opt}})
+  // }
+
   const toggleLabelVisibility = () => {
     onChangeIsActive(!isActive);
   };
+
+  const handleChange = (selectedOption) => {
+    setSelectedOpion({ selectedOption });
+    return selectedOption;
+  };
+
+  const inputProps = {
+    ...input,
+    onChange: ({ label, value }) => {
+      onChange(label);
+      handleChange({ value });
+    },
+  };
+
   return (
     <SelectWrap selectType={selectType}>
       <Label
@@ -32,13 +55,17 @@ const FormSelect = ({ input, placeholder, selectType = "", isMulti }) => {
         />
       ) : (
         <SingleSelect
-          {...input}
+          {...inputProps}
           classNamePrefix="Select"
           options={opts}
+          value={selectedOption.value}
           placeholder={placeholder}
           onFocus={toggleLabelVisibility}
           onBlur={toggleLabelVisibility}
         />
+      )}
+      {meta.error && meta.submitFailed && (
+        <ErrorMassage>{meta.error}</ErrorMassage>
       )}
     </SelectWrap>
   );

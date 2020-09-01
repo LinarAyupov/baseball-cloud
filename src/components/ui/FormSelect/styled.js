@@ -106,3 +106,6 @@ export const Label = styled.label`
     text-decoration: underline;
   }
 `;
+export const ErrorMassage = styled.span`
+  color: #f05f62;
+`;

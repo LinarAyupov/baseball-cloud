@@ -1,13 +1,21 @@
 import React from "react";
-import { Input, Label, InputWrap } from "./styled";
+import { Input, Label, InputWrap, ErrorMassage } from "./styled";
 
-const FormTextInput = ({ input, placeholder, typeEdit = "" }) => {
+const FormTextInput = ({ input, placeholder, typeEdit = "", meta }) => {
   return (
     <InputWrap typeEdit={typeEdit}>
-      <Input {...input} placeholder={placeholder} id="name-input" />
+      <Input
+        {...input}
+        placeholder={placeholder}
+        id="name-input"
+        autocomplete="off"
+      />
       <Label htmlFor="name-input" id="nameInput">
         {placeholder}
       </Label>
+      {meta.error && meta.submitFailed && (
+        <ErrorMassage>{meta.error}</ErrorMassage>
+      )}
     </InputWrap>
   );
 };
