@@ -18,18 +18,24 @@ import FormSelect from "../../ui/FormSelect/FormSelect";
 import SidebarSubtitle from "../../ui/SidebarSubtitle";
 import FormTextArea from "../../ui/FormTextArea";
 
-const EditSidebar = ({ profileCurrents }) => {
+const EditSidebar = ({ profileCurrents, schools, teams }) => {
+  console.log(profileCurrents);
   const firstPositionOpts = [
-    { value: "catcher", label: "Catcher" },
-    { value: "first_base", label: "First Base" },
-    { value: "second_base", label: "Second Base" },
-    { value: "shortstop", label: "Shortstop" },
+    { id: "catcher", name: "Catcher" },
+    { id: "first_base", name: "First Base" },
+    { id: "second_base", name: "Second Base" },
+    { id: "shortstop", name: "Shortstop" },
   ];
-  const secondPositionOpts = [{ value: "_", label: "_" }, ...firstPositionOpts];
+  const secondPositionOpts = [{ id: "", name: "_" }, ...firstPositionOpts];
   const handsSide = [
-    { value: "l", label: "R" },
-    { value: "l", label: "L" },
+    { id: "r", name: "R" },
+    { id: "l", name: "L" },
   ];
+  const setDefaultValue = (options, value) => {
+    let defaultValue = options.find((opt) => opt.id === value);
+    return defaultValue;
+  };
+
   const click = (value) => console.log(value);
   const onChange = (e) => {
     return e.label;
@@ -37,7 +43,7 @@ const EditSidebar = ({ profileCurrents }) => {
   return (
     <SidebarContainer>
       <AvatarFormWrap>
-        <AvatarWrap />
+        <AvatarWrap avatarUrl={profileCurrents.avatar} />
         <AvatarUpload for="fileInput">Choose Photo</AvatarUpload>
         <UploadInput type="file" id="fileInput" />
       </AvatarFormWrap>
@@ -66,7 +72,10 @@ const EditSidebar = ({ profileCurrents }) => {
             </ShortInputsWrap>
             <Field
               name="position"
-              initialOptValue={profileCurrents.position}
+              initialValue={setDefaultValue(
+                firstPositionOpts,
+                profileCurrents.position
+              )}
               placeholder="Position in Game *"
               component={FormSelect}
               inputOnChange={onChange}
@@ -75,6 +84,10 @@ const EditSidebar = ({ profileCurrents }) => {
             <Field
               name="position2"
               placeholder="Secondary Position in Game"
+              initialValue={setDefaultValue(
+                firstPositionOpts,
+                profileCurrents.position2
+              )}
               component={FormSelect}
               options={secondPositionOpts}
             />
@@ -104,7 +117,6 @@ const EditSidebar = ({ profileCurrents }) => {
                 initialValue={profileCurrents.inches}
                 placeholder="Inches"
                 component={FormTextInput}
-                validate={FormValidators.inchesValidate}
                 typeEdit="short"
               />
             </ShortInputsWrap>
@@ -119,6 +131,10 @@ const EditSidebar = ({ profileCurrents }) => {
               <Field
                 name="throws_hand"
                 placeholder="Throws *"
+                initialValue={setDefaultValue(
+                  handsSide,
+                  profileCurrents.throws_hand
+                )}
                 component={FormSelect}
                 selectType="short"
                 options={handsSide}
@@ -126,13 +142,23 @@ const EditSidebar = ({ profileCurrents }) => {
               <Field
                 name="bats_hand"
                 placeholder="Bats *"
+                initialValue={setDefaultValue(
+                  handsSide,
+                  profileCurrents.bats_hand
+                )}
                 component={FormSelect}
                 selectType="short"
                 options={handsSide}
               />
             </ShortInputsWrap>
             <SidebarSubtitle>School</SidebarSubtitle>
-            <Field name="School" placeholder="School" component={FormSelect} />
+            <Field
+              name="School"
+              placeholder="School"
+              component={FormSelect}
+              initialValue={setDefaultValue(schools, profileCurrents.school)}
+              options={schools}
+            />
             <Field
               name="school_year"
               placeholder="Shool Year"
@@ -142,6 +168,8 @@ const EditSidebar = ({ profileCurrents }) => {
               name="teams"
               placeholder="Team"
               component={FormSelect}
+              initialValue={profileCurrents.teams}
+              options={teams}
               isMulti={true}
             />
             <SidebarSubtitle>Facility</SidebarSubtitle>

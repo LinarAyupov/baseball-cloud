@@ -61,22 +61,13 @@ class FormValidators {
     if (!value.weight) {
       errors.weight = "Weigth Required";
     }
-
+    if (value.height || value.height > 7) {
+      errors.weight = "Maximum height is 7";
+    }
+    if (value.inches > 11 || value.inches < 0) {
+      errors.inches = "Inches can be from 0 to 11";
+    }
     return errors;
-  };
-  heightValidate = (value) => {
-    if (!value || value > 7) {
-      return "Maximum height is 7";
-    } else {
-      return undefined;
-    }
-  };
-  inchesValidate = (value) => {
-    if (!value || value > 11 || value < 0) {
-      return "Inches can be from 0 to 11";
-    } else {
-      return undefined;
-    }
   };
 }
 

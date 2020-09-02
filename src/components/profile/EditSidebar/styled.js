@@ -11,6 +11,7 @@ export const AvatarWrap = styled.div`
   width: 100px;
   height: 100px;
   margin-bottom: 16px;
+  border-radius: 50%;
   background-image: url(${({ avatarUrl }) =>
     avatarUrl
       ? avatarUrl

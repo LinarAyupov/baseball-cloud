@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getIsAuth } from "./selectors/selectors";
+import { getIsAuthState } from "./selectors/selectors";
 import AuthPage from "./components/auth/AuthPage/AuthPage";
 import ProfilePage from "./components/profile/ProfilePage";
 
@@ -15,7 +15,7 @@ function App({ isAuth }) {
 
 const mapStateToProps = (state) => {
   return {
-    isAuth: getIsAuth(state),
+    isAuth: getIsAuthState(state),
   };
 };
 

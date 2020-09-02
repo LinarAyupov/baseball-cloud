@@ -8,48 +8,47 @@ const FormSelect = ({
   isMulti,
   meta,
   options = [],
-  initialOptValue = null,
 }) => {
+  const { initial } = meta;
   const { onChange } = input;
   const [isActive, onChangeIsActive] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const setDefaultValue = (options, value) => {
-    let defaultValue = options.find((opt) => opt.value === value);
-    return defaultValue;
-  };
+  const [opts, setOption] = useState(options);
+  const [newValue, setValue] = useState("");
   const toggleLabelVisibility = () => {
     onChangeIsActive(!isActive);
   };
-
-  const handleChange = (selectedOption) => {
-    setSelectedOption({ selectedOption });
-    return selectedOption;
+  console.log(opts);
+  const newOptionValue = (e) => {
+    setValue(e);
   };
 
   const inputProps = {
     ...input,
-    onChange: ({ label, value }) => {
-      onChange(label);
-      handleChange({ value });
+    onChange: (e) => {
+      onChange(e);
     },
+  };
+
+  const handleKeyDown = (event) => {
+    if (!newValue) return;
+    if (event.key === "Enter") {
+      setOption([...opts, { name: newValue, id: newValue }]);
+      event.preventDefault();
+    }
   };
 
   return (
     <SelectWrap selectType={selectType}>
-      <Label
-        isActive={isActive}
-        id="input-label"
-        onClick={toggleLabelVisibility}
-      >
-        {placeholder}
-      </Label>
       {isMulti ? (
         <SingleSelect
           {...input}
           classNamePrefix="Select"
-          defaultValue={setDefaultValue(options, initialOptValue)}
-          options={options}
+          defaultValue={initial}
+          options={opts}
+          getOptionLabel={(option) => option.name}
+          getOptionValue={(option) => option.id}
+          onInputChange={newOptionValue}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           onFocus={toggleLabelVisibility}
           onBlur={toggleLabelVisibility}
@@ -59,14 +58,18 @@ const FormSelect = ({
         <SingleSelect
           {...inputProps}
           classNamePrefix="Select"
-          defaultValue={setDefaultValue(options, initialOptValue)}
+          defaultValue={initial}
           options={options}
-          value={selectedOption.value}
+          getOptionLabel={(option) => option.name}
+          getOptionValue={(option) => option.id}
           placeholder={placeholder}
           onFocus={toggleLabelVisibility}
           onBlur={toggleLabelVisibility}
         />
       )}
+      <Label isActive={isActive} id="input-label">
+        {placeholder}
+      </Label>
       {meta.error && meta.submitFailed && (
         <ErrorMassage>{meta.error}</ErrorMassage>
       )}

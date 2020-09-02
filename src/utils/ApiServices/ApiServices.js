@@ -71,6 +71,34 @@ class ApiServices {
       throw err;
     }
   };
+  getSchoolList = async ({ searchText }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_SCHOOLS),
+        variables: {
+          search: searchText,
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+  getTeamsList = async ({ searchText }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_TEAMS),
+        variables: {
+          search: searchText,
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
 }
 
 export default new ApiServices();
