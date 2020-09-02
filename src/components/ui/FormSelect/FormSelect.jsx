@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SingleSelect, SelectWrap, Label, ErrorMassage } from "./styled";
 
 const FormSelect = ({
@@ -7,22 +7,23 @@ const FormSelect = ({
   selectType = "",
   isMulti,
   meta,
-  options,
+  options = [],
+  initialOptValue = null,
 }) => {
   const { onChange } = input;
   const [isActive, onChangeIsActive] = useState(false);
-  const [selectedOption, setSelectedOpion] = useState("");
-  let opts = [];
-  // if(options) {
-  //   opts = options.map(opt => {value: {...opt}})
-  // }
+  const [selectedOption, setSelectedOption] = useState("");
 
+  const setDefaultValue = (options, value) => {
+    let defaultValue = options.find((opt) => opt.value === value);
+    return defaultValue;
+  };
   const toggleLabelVisibility = () => {
     onChangeIsActive(!isActive);
   };
 
   const handleChange = (selectedOption) => {
-    setSelectedOpion({ selectedOption });
+    setSelectedOption({ selectedOption });
     return selectedOption;
   };
 
@@ -47,7 +48,8 @@ const FormSelect = ({
         <SingleSelect
           {...input}
           classNamePrefix="Select"
-          options={opts}
+          defaultValue={setDefaultValue(options, initialOptValue)}
+          options={options}
           placeholder={placeholder}
           onFocus={toggleLabelVisibility}
           onBlur={toggleLabelVisibility}
@@ -57,7 +59,8 @@ const FormSelect = ({
         <SingleSelect
           {...inputProps}
           classNamePrefix="Select"
-          options={opts}
+          defaultValue={setDefaultValue(options, initialOptValue)}
+          options={options}
           value={selectedOption.value}
           placeholder={placeholder}
           onFocus={toggleLabelVisibility}

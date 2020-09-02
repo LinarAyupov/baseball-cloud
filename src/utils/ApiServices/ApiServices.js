@@ -1,5 +1,19 @@
 import axios from "axios";
+import { print } from "graphql";
 import StorageServices from "../StorageServices";
+import {
+  GET_PROFILE_CURRENTS,
+  GET_SCHOOLS,
+  GET_NOTIFICATIONS,
+  GET_LEADERBOARD_BATTING,
+  GET_TEAMS,
+  GET_FACILITIES,
+  GET_PROFILE_FULLDATA,
+  GET_PROFILE_EVENTS,
+  GET_BUTTING_SUMMARY,
+  UPDATE_PROFILE_DATA,
+  GET_BATTING_LOG,
+} from "../queries";
 
 class ApiServices {
   axiosInstance = async () => {
@@ -41,6 +55,17 @@ class ApiServices {
     try {
       const request = await this.axiosInstance();
       const response = await request.post("/auth", userData);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+  getProfileCurrents = async () => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_PROFILE_CURRENTS),
+      });
       return response;
     } catch (err) {
       throw err;

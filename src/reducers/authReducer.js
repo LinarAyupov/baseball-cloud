@@ -7,7 +7,7 @@ const initialState = {
   unauthorized: true,
   isFetching: false,
   isAuth: false,
-  profileData: {},
+  profile: {},
 };
 
 const actionMap = {
@@ -32,7 +32,7 @@ const actionMap = {
   [FETCH_PROFILE_DATA]: (state, action) => {
     return {
       ...state,
-      profileData: action.payload.data,
+      profile: action.payload.data,
     };
   },
 };

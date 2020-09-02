@@ -18,7 +18,18 @@ import FormSelect from "../../ui/FormSelect/FormSelect";
 import SidebarSubtitle from "../../ui/SidebarSubtitle";
 import FormTextArea from "../../ui/FormTextArea";
 
-const EditSidebar = () => {
+const EditSidebar = ({ profileCurrents }) => {
+  const firstPositionOpts = [
+    { value: "catcher", label: "Catcher" },
+    { value: "first_base", label: "First Base" },
+    { value: "second_base", label: "Second Base" },
+    { value: "shortstop", label: "Shortstop" },
+  ];
+  const secondPositionOpts = [{ value: "_", label: "_" }, ...firstPositionOpts];
+  const handsSide = [
+    { value: "l", label: "R" },
+    { value: "l", label: "L" },
+  ];
   const click = (value) => console.log(value);
   const onChange = (e) => {
     return e.label;
@@ -39,6 +50,7 @@ const EditSidebar = () => {
               <Field
                 name="first_name"
                 type="text"
+                initialValue={profileCurrents.first_name}
                 placeholder="First name*"
                 typeEdit="short"
                 component={FormTextInput}
@@ -46,6 +58,7 @@ const EditSidebar = () => {
               <Field
                 name="last_name"
                 type="text"
+                initialValue={profileCurrents.last_name}
                 placeholder="Last Name *"
                 typeEdit="short"
                 component={FormTextInput}
@@ -53,14 +66,17 @@ const EditSidebar = () => {
             </ShortInputsWrap>
             <Field
               name="position"
+              initialOptValue={profileCurrents.position}
               placeholder="Position in Game *"
               component={FormSelect}
               inputOnChange={onChange}
+              options={firstPositionOpts}
             />
             <Field
               name="position2"
               placeholder="Secondary Position in Game"
               component={FormSelect}
+              options={secondPositionOpts}
             />
 
             <SidebarSubtitle>Personal Info</SidebarSubtitle>
@@ -69,12 +85,14 @@ const EditSidebar = () => {
               name="age"
               type="number"
               placeholder="Age *"
+              initialValue={profileCurrents.age}
               component={FormTextInput}
             />
             <ShortInputsWrap>
               <Field
                 name="feet"
                 type="number"
+                initialValue={profileCurrents.feet}
                 placeholder="Feet *"
                 component={FormTextInput}
                 validate={FormValidators.heightValidate}
@@ -83,6 +101,7 @@ const EditSidebar = () => {
               <Field
                 name="inches"
                 type="number"
+                initialValue={profileCurrents.inches}
                 placeholder="Inches"
                 component={FormTextInput}
                 validate={FormValidators.inchesValidate}
@@ -92,6 +111,7 @@ const EditSidebar = () => {
             <Field
               name="weight"
               type="number"
+              initialValue={profileCurrents.weight}
               placeholder="Weight *"
               component={FormTextInput}
             />
@@ -101,12 +121,14 @@ const EditSidebar = () => {
                 placeholder="Throws *"
                 component={FormSelect}
                 selectType="short"
+                options={handsSide}
               />
               <Field
                 name="bats_hand"
                 placeholder="Bats *"
                 component={FormSelect}
                 selectType="short"
+                options={handsSide}
               />
             </ShortInputsWrap>
             <SidebarSubtitle>School</SidebarSubtitle>
@@ -132,6 +154,7 @@ const EditSidebar = () => {
             <SidebarSubtitle>About</SidebarSubtitle>
             <Field
               name="biography"
+              initialValue={profileCurrents.biography}
               placeholder="Describe yourself in a few words"
               component={FormTextArea}
             />

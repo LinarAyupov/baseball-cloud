@@ -5,7 +5,12 @@ import AuthPage from "./components/auth/AuthPage/AuthPage";
 import ProfilePage from "./components/profile/ProfilePage";
 
 function App({ isAuth }) {
-  return <> {true ? <ProfilePage isAuth={true} /> : <AuthPage />}</>;
+  return (
+    <>
+      {" "}
+      {isAuth ? <ProfilePage isAuth={isAuth} /> : <AuthPage isAuth={isAuth} />}
+    </>
+  );
 }
 
 const mapStateToProps = (state) => {

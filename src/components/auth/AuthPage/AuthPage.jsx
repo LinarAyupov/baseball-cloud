@@ -1,5 +1,5 @@
-import React from "react";
-import { Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, withRouter } from "react-router-dom";
 import { MainContainer } from "../../../commonStyles/styled";
 import { ContentWrapper } from "./styled";
 import Terms from "../Legal/Terms";
@@ -9,7 +9,12 @@ import Forgotten from "../Forgotten";
 import Registration from "../Registration/Registration";
 import Header from "../../../layout/Header";
 import Footer from "../../../layout/Footer";
-const AuthPage = () => {
+const AuthPage = ({ isAuth, history }) => {
+  useEffect(() => {
+    if (!isAuth) {
+      history.push("/login");
+    }
+  }, [isAuth, history]);
   return (
     <MainContainer>
       <Header />
@@ -25,4 +30,4 @@ const AuthPage = () => {
   );
 };
 
-export default AuthPage;
+export default withRouter(AuthPage);
