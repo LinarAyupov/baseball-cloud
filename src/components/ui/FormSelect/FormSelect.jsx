@@ -13,7 +13,6 @@ const FormSelect = ({
   const toggleLabelVisibility = () => {
     onChangeIsActive(!isActive);
   };
-
   return (
     <SelectWrap selectType={selectType}>
       <InputSelect

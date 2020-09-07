@@ -65,6 +65,8 @@ const InfoSidebar = ({
       optionList.filter((opt) =>
         opt.name ? name.push(opt.name) : name.push(opt.u_name)
       );
+    } else if (!optionList) {
+      name = [""];
     } else {
       name = optionList.name;
     }
@@ -138,10 +140,10 @@ const InfoSidebar = ({
       <TextBox>{getOptionName(schoolYears, school_year)}</TextBox>
 
       <Heading>Team</Heading>
-      <TextBox>{getOptionName(teams).join(", ")}</TextBox>
+      <TextBox>{getOptionName(teams).join(", ") || ""}</TextBox>
 
       <Heading>Facility</Heading>
-      <TextBox>{getOptionName(facilities).join(", ")}</TextBox>
+      <TextBox>{getOptionName(facilities).join(", ") || ""}</TextBox>
 
       <SidebarSubtitle>About</SidebarSubtitle>
 

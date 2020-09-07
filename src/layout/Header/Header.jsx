@@ -9,9 +9,9 @@ import {
   ProfileAvatar,
   ProfileNavBtn,
   DownIconWrap,
-  DropdownList,
   DropdownLink,
 } from "./styled";
+import { DropdownList } from "../../commonStyles/styled";
 import LogoSvg from "../../components/SvgComponents/logoSvg";
 import DownIcon from "../../components/SvgComponents/DownIcon";
 

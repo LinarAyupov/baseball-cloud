@@ -1,7 +1,13 @@
 import React from "react";
-import { Header, HeaderTitle, HeaderButtonsWrap, ClearBtn } from "./styled";
+import {
+  Header,
+  HeaderTitle,
+  HeaderButtonsWrap,
+  ClearBtn,
+  TypeButton,
+} from "./styled";
 import DateButton from "../../commons/DateButton";
-
+import CalenderArrowSvg from "../../SvgComponents/CalenderArrowSvg";
 const SessionReports = () => {
   const arr = [
     {
@@ -18,6 +24,9 @@ const SessionReports = () => {
         <HeaderButtonsWrap>
           <ClearBtn>Clear Filters</ClearBtn>
           <DateButton />
+          <TypeButton>
+            Type <CalenderArrowSvg />
+          </TypeButton>
         </HeaderButtonsWrap>
       </Header>
     </>

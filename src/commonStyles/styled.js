@@ -58,3 +58,31 @@ export const NowInfo = styled.div`
   color: #667784;
   font-size: 16px;
 `;
+
+export const DropdownList = styled.div`
+  display: ${({ dropdownActive }) => (dropdownActive ? "flex" : "none")};
+  flex-direction: column;
+  width: 178px;
+  position: absolute;
+  top: 100%;
+  margin-top: 12px;
+  padding: 8px 0;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.15);
+  border: solid 1px #ebebeb;
+  z-index: 100;
+  right: -5px;
+  &:: before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -8px;
+    right: 25px;
+    z-index: 2;
+    border-style: solid;
+    border-width: 0 8px 8px 8px;
+    border-color: transparent transparent #ffffff transparent;
+  }
+`;

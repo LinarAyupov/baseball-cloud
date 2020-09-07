@@ -18,7 +18,6 @@ const Statistics = () => {
         selectedIndex={tabIndex}
         onSelect={(index) => {
           setTabIndex(index);
-          console.log(index);
         }}
       >
         <TabListWrap>
