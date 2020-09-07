@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 export const GET_PROFILE_CURRENTS = gql`
   query {
     current_profile {
+      id
       first_name
       last_name
       position
@@ -236,18 +237,6 @@ export const UPDATE_PROFILE_DATA = gql`
         inches
         weight
         age
-        recent_events {
-          id
-          event_type
-          event_name
-          date
-          recent_avatars {
-            id
-            first_name
-            last_name
-            avatar
-          }
-        }
         school {
           id
           name

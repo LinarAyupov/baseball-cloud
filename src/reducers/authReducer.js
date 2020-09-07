@@ -4,7 +4,7 @@ export const IS_FETCHING = "IS-FETCHING";
 export const UNAUTHORIZED = "UNAUTHORIZED";
 
 const initialState = {
-  unauthorized: true,
+  unauthorized: false,
   isFetching: false,
   isAuth: false,
   profile: {},

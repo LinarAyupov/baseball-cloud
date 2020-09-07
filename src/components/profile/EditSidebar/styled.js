@@ -1,41 +1,5 @@
 import styled from "styled-components";
 
-export const AvatarFormWrap = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 18px;
-`;
-
-export const AvatarWrap = styled.div`
-  width: 100px;
-  height: 100px;
-  margin-bottom: 16px;
-  border-radius: 50%;
-  background-image: url(${({ avatarUrl }) =>
-    avatarUrl
-      ? avatarUrl
-      : "https://baseballcloud-front.herokuapp.com/4625203570ef5f6721fc145b05f790a9.png"});
-  background-size: cover;
-  background-position: 50% 50%;
-`;
-
-export const AvatarUpload = styled.label`
-  font-size: 14px;
-  line-height: 1;
-  font-weight: 400;
-  color: #788b99;
-  cursor: pointer;
-  white-space: nowrap;
-`;
-
-export const UploadInput = styled.input`
-  width: 0.1px;
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-`;
-
 export const FormWrap = styled.form`
   display: flex;
   flex-direction: column;
@@ -66,6 +30,9 @@ export const Button = styled.button`
   &:hover {
     border: solid 1px #48caff;
     box-shadow: 0 0 2px 0 #48caff;
+  }
+  &[disabled] {
+    background-color: #75a4bf;
   }
 `;
 

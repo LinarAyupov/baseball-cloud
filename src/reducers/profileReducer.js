@@ -16,6 +16,29 @@ const initialState = {
   notifications: [],
   events: [],
   battingSummary: {},
+  firstPositions: [
+    { id: "catcher", name: "Catcher" },
+    { id: "first_base", name: "First Base" },
+    { id: "second_base", name: "Second Base" },
+    { id: "shortstop", name: "Shortstop" },
+  ],
+  secondPositions: [
+    { id: "", name: "_" },
+    { id: "catcher", name: "Catcher" },
+    { id: "first_base", name: "First Base" },
+    { id: "second_base", name: "Second Base" },
+    { id: "shortstop", name: "Shortstop" },
+  ],
+  schoolYears: [
+    { id: "freshman", name: "Freshman" },
+    { id: "sophomore", name: "Sophomore" },
+    { id: "junior", name: "Junior" },
+    { id: "senior", name: "Senior" },
+  ],
+  handsSides: [
+    { id: "r", name: "R" },
+    { id: "l", name: "L" },
+  ],
 };
 const actionMap = {
   [FETCH_PROFILE_CURRENTS]: (state, action) => {

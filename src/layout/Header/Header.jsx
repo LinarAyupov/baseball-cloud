@@ -15,7 +15,7 @@ import {
 import LogoSvg from "../../components/SvgComponents/logoSvg";
 import DownIcon from "../../components/SvgComponents/DownIcon";
 
-const Header = ({ isAuth }) => {
+const Header = ({ isAuth, avatarUrl = "", userName, userLastName }) => {
   const [dropdownActive, toggleDropdown] = useState(false);
   const toggleDropdownPanel = () => {
     toggleDropdown(!dropdownActive);
@@ -39,9 +39,9 @@ const Header = ({ isAuth }) => {
             <Border className="border" />
           </NavLink>
           <ProfileNav>
-            <ProfileAvatar to="/profile" />
+            <ProfileAvatar to="/profile" avatarUrl={avatarUrl} />
             <ProfileNavBtn onClick={toggleDropdownPanel}>
-              Ayupov Linar{" "}
+              {userName || "User"} {userLastName || "Name"}
               <DownIconWrap>
                 <DownIcon />
               </DownIconWrap>

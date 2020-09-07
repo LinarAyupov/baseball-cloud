@@ -63,6 +63,7 @@ export const ProfileAvatar = styled(Link)`
   display: block;
   width: 32px;
   height: 32px;
+  border-radius: 50%;
   background-image: url(${({ avatarUrl }) =>
     avatarUrl
       ? avatarUrl

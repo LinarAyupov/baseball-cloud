@@ -4,8 +4,15 @@ import { MainContainer } from "../../../commonStyles/styled";
 import Header from "../../../layout/Header";
 import Footer from "../../../layout/Footer";
 import PlayerProfile from "../PlayerProfile";
+import { connect } from "react-redux";
 
-const ProfilePage = ({ isAuth, history }) => {
+const ProfilePage = ({
+  isAuth,
+  history,
+  avatarUrl,
+  userName,
+  userLastName,
+}) => {
   useEffect(() => {
     if (isAuth) {
       history.push("/profile");
@@ -13,11 +20,22 @@ const ProfilePage = ({ isAuth, history }) => {
   }, [isAuth, history]);
   return (
     <MainContainer>
-      <Header isAuth={isAuth} />
+      <Header
+        isAuth={isAuth}
+        avatarUrl={avatarUrl}
+        userName={userName}
+        userLastName={userLastName}
+      />
       <Route path="/profile" render={() => <PlayerProfile />} />
       <Footer />
     </MainContainer>
   );
 };
-
-export default withRouter(ProfilePage);
+const mapStateToProps = (state) => {
+  return {
+    avatarUrl: state.profileData.profileCurrents.avatar,
+    userName: state.profileData.profileCurrents.first_name,
+    userLastName: state.profileData.profileCurrents.last_name,
+  };
+};
+export default connect(mapStateToProps)(withRouter(ProfilePage));

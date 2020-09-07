@@ -1,55 +1,22 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { ContentWrapper } from "./styled";
 import { ProfileContainer } from "../../../commonStyles/styled";
-import EditSidebar from "../EditSidebar";
-import {
-  getProfileCurrents,
-  getSchools,
-  getTeams,
-} from "../../../actions/profileActions";
-import {
-  getProfileState,
-  getSchoolsState,
-  getTeasmsState,
-} from "../../../selectors/selectors";
+import SidebarContainer from "../../../containers/SidebarContainer";
+import TopBatting from "../TopBatting";
+import RecentReports from "../RecentReports";
+import Statistics from "../Statistics";
 
-const PlayerProfile = ({
-  getProfileCurrents,
-  profileCurrents,
-  getSchools,
-  getTeams,
-  schools,
-  teams,
-}) => {
-  useEffect(() => {
-    let searchText = "";
-    getProfileCurrents();
-    getSchools({ searchText });
-    getTeams({ searchText });
-  }, [getProfileCurrents, getSchools, getTeams]);
+const PlayerProfile = () => {
   return (
     <ProfileContainer>
-      <EditSidebar
-        profileCurrents={profileCurrents}
-        schools={schools}
-        teams={teams}
-      />
+      <SidebarContainer />
+      <ContentWrapper>
+        <TopBatting />
+        <RecentReports />
+        <Statistics />
+      </ContentWrapper>
     </ProfileContainer>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    profileCurrents: getProfileState(state),
-    schools: getSchoolsState(state),
-    teams: getTeasmsState(state),
-  };
-};
-
-const mapDispatchToProps = {
-  getProfileCurrents,
-  getSchools,
-  getTeams,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerProfile);
+export default PlayerProfile;

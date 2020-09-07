@@ -22,11 +22,7 @@ class ApiServices {
       client,
       uid,
     } = await StorageServices.getHeadersDataFromStorage();
-    let headers = {
-      "Access-Control-Expose-Headers": "Access-Token, Uid, Client",
-      "Content-Type": "application/json; charset=utf-8",
-    };
-
+    let headers = {};
     if (accessToken) {
       headers = {
         ...headers,
@@ -41,6 +37,7 @@ class ApiServices {
       headers,
     });
   };
+
   singIn = async ({ userData }) => {
     try {
       const request = await this.axiosInstance();
@@ -95,6 +92,56 @@ class ApiServices {
         },
       });
       return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+  getFacilities = async ({ searchText }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_FACILITIES),
+        variables: {
+          search: searchText,
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  updateProfile = async ({ profileCounts }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(UPDATE_PROFILE_DATA),
+        variables: {
+          form: profileCounts,
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  uploadPhoto = async ({ imageFile }) => {
+    const { name } = imageFile;
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    try {
+      const request = await this.axiosInstance();
+      const { data } = await request.post("/s3/signed_url", {
+        name,
+      });
+      const { signedUrl } = data;
+      await axios.put(signedUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return signedUrl;
     } catch (err) {
       throw err;
     }

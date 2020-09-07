@@ -3,10 +3,6 @@ import { SidebarContainer } from "../../../commonStyles/styled";
 import { Form, Field } from "react-final-form";
 import FormValidators from "../../../utils/FormValidators";
 import {
-  AvatarFormWrap,
-  AvatarWrap,
-  AvatarUpload,
-  UploadInput,
   FormWrap,
   ShortInputsWrap,
   ButtonsWrap,
@@ -17,41 +13,85 @@ import FormTextInput from "../../ui/FormTextInput";
 import FormSelect from "../../ui/FormSelect/FormSelect";
 import SidebarSubtitle from "../../ui/SidebarSubtitle";
 import FormTextArea from "../../ui/FormTextArea";
+import AvatarForm from "../../ui/AvatarForm";
 
-const EditSidebar = ({ profileCurrents, schools, teams }) => {
-  console.log(profileCurrents);
-  const firstPositionOpts = [
-    { id: "catcher", name: "Catcher" },
-    { id: "first_base", name: "First Base" },
-    { id: "second_base", name: "Second Base" },
-    { id: "shortstop", name: "Shortstop" },
-  ];
-  const secondPositionOpts = [{ id: "", name: "_" }, ...firstPositionOpts];
-  const handsSide = [
-    { id: "r", name: "R" },
-    { id: "l", name: "L" },
-  ];
+const EditSidebar = ({
+  profileCurrents,
+  schools,
+  teams,
+  firstPositions,
+  secondPositions,
+  handsSides,
+  facilities,
+  profileFacilities,
+  schoolYears,
+  updateProfile,
+  isFetching,
+  uploadPhoto,
+  setIsEdit,
+}) => {
   const setDefaultValue = (options, value) => {
-    let defaultValue = options.find((opt) => opt.id === value);
+    let defaultValue = {};
+    if (options) {
+      defaultValue = options.find((opt) => opt.id === value);
+    }
     return defaultValue;
   };
 
-  const click = (value) => console.log(value);
-  const onChange = (e) => {
-    return e.label;
+  const createProfileCounts = (value) => {
+    const {
+      age,
+      position,
+      position2,
+      bats_hand,
+      throws_hand,
+      school,
+      school_year,
+      facilities,
+      feet,
+      inches,
+      weight,
+    } = value;
+    const { id, avatar } = profileCurrents;
+    const profileCounts = {
+      ...value,
+      age: Number(age),
+      feet: Number(feet),
+      inches: Number(inches),
+      weight: Number(weight),
+      id,
+      avatar,
+      position: position.id,
+      position2: position2.id,
+      bats_hand: bats_hand.id,
+      throws_hand: throws_hand.id,
+      school: school || profileCurrents.school,
+      school_year: school_year.id || profileCurrents.school_year,
+      facilities: facilities
+        ? value.facilities.map((f) => ({
+            id: f.id,
+            email: f.email,
+            u_name: f.name,
+          }))
+        : [],
+    };
+
+    updateProfile({ profileCounts });
   };
+
   return (
     <SidebarContainer>
-      <AvatarFormWrap>
-        <AvatarWrap avatarUrl={profileCurrents.avatar} />
-        <AvatarUpload for="fileInput">Choose Photo</AvatarUpload>
-        <UploadInput type="file" id="fileInput" />
-      </AvatarFormWrap>
+      <AvatarForm avatar={profileCurrents.avatar} uploadPhoto={uploadPhoto} />
       <Form
-        onSubmit={click}
+        onSubmit={createProfileCounts}
         validate={FormValidators.SidebarValidator}
-        render={({ handleSubmit }) => (
-          <FormWrap onSubmit={handleSubmit}>
+        render={({ handleSubmit, submitSucceeded }) => (
+          <FormWrap
+            onSubmit={handleSubmit}
+            onKeyPress={(e) => {
+              e.key === "Enter" && e.preventDefault();
+            }}
+          >
             <ShortInputsWrap style={{ marginBottom: "10px" }}>
               <Field
                 name="first_name"
@@ -73,23 +113,22 @@ const EditSidebar = ({ profileCurrents, schools, teams }) => {
             <Field
               name="position"
               initialValue={setDefaultValue(
-                firstPositionOpts,
+                firstPositions,
                 profileCurrents.position
               )}
               placeholder="Position in Game *"
               component={FormSelect}
-              inputOnChange={onChange}
-              options={firstPositionOpts}
+              options={firstPositions}
             />
             <Field
               name="position2"
               placeholder="Secondary Position in Game"
               initialValue={setDefaultValue(
-                firstPositionOpts,
+                secondPositions,
                 profileCurrents.position2
               )}
               component={FormSelect}
-              options={secondPositionOpts}
+              options={secondPositions}
             />
 
             <SidebarSubtitle>Personal Info</SidebarSubtitle>
@@ -132,37 +171,42 @@ const EditSidebar = ({ profileCurrents, schools, teams }) => {
                 name="throws_hand"
                 placeholder="Throws *"
                 initialValue={setDefaultValue(
-                  handsSide,
+                  handsSides,
                   profileCurrents.throws_hand
                 )}
                 component={FormSelect}
                 selectType="short"
-                options={handsSide}
+                options={handsSides}
               />
               <Field
                 name="bats_hand"
                 placeholder="Bats *"
                 initialValue={setDefaultValue(
-                  handsSide,
+                  handsSides,
                   profileCurrents.bats_hand
                 )}
                 component={FormSelect}
                 selectType="short"
-                options={handsSide}
+                options={handsSides}
               />
             </ShortInputsWrap>
             <SidebarSubtitle>School</SidebarSubtitle>
             <Field
-              name="School"
+              name="school"
               placeholder="School"
+              initialValue={profileCurrents.school}
               component={FormSelect}
-              initialValue={setDefaultValue(schools, profileCurrents.school)}
               options={schools}
             />
             <Field
+              initialValue={setDefaultValue(
+                schoolYears,
+                profileCurrents.school_year
+              )}
               name="school_year"
               placeholder="Shool Year"
               component={FormSelect}
+              options={schoolYears}
             />
             <Field
               name="teams"
@@ -170,14 +214,18 @@ const EditSidebar = ({ profileCurrents, schools, teams }) => {
               component={FormSelect}
               initialValue={profileCurrents.teams}
               options={teams}
+              multiple={true}
               isMulti={true}
             />
             <SidebarSubtitle>Facility</SidebarSubtitle>
             <Field
-              name="facilities "
+              name="facilities"
+              initialValue={profileFacilities}
               placeholder="Facility "
+              options={facilities}
               component={FormSelect}
               isMulti={true}
+              facilities={true}
             />
             <SidebarSubtitle>About</SidebarSubtitle>
             <Field
@@ -187,9 +235,21 @@ const EditSidebar = ({ profileCurrents, schools, teams }) => {
               component={FormTextArea}
             />
             <ButtonsWrap>
-              <CancelBtn>Cancel</CancelBtn>
-              <SaveBtn type="submit">Save</SaveBtn>
+              <CancelBtn disabled={isFetching} onClick={() => setIsEdit(false)}>
+                Cancel
+              </CancelBtn>
+              <SaveBtn type="submit" disabled={isFetching}>
+                {isFetching ? (
+                  <i
+                    class="fa fa-spinner fa-spin"
+                    style={{ fontSize: "19px" }}
+                  ></i>
+                ) : (
+                  "Save"
+                )}
+              </SaveBtn>
             </ButtonsWrap>
+            {submitSucceeded && !isFetching && setIsEdit(false)}
           </FormWrap>
         )}
       />
@@ -197,4 +257,4 @@ const EditSidebar = ({ profileCurrents, schools, teams }) => {
   );
 };
 
-export default EditSidebar;
+export default React.memo(EditSidebar);

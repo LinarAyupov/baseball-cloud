@@ -7,7 +7,7 @@ import {
 import ApiServices from "../utils/ApiServices";
 import StorageServices from "../utils/StorageServices";
 
-const toggleIsFetching = () => {
+export const toggleIsFetching = () => {
   return {
     type: IS_FETCHING,
   };
@@ -45,10 +45,10 @@ export const singIn = (userData) => {
       await StorageServices.setHeadersDataToStore({ headers });
       dispatch(fetchProfileData({ data }));
       dispatch(onChangeAuth());
-      dispatch(toggleUnauthorized(true));
+      dispatch(toggleUnauthorized(false));
       dispatch(toggleIsFetching());
     } catch {
-      dispatch(toggleUnauthorized(false));
+      dispatch(toggleUnauthorized(true));
       dispatch(toggleIsFetching());
     }
   };
@@ -62,10 +62,10 @@ export const singUp = ({ userData }) => {
       await StorageServices.setHeadersDataToStore({ headers });
       dispatch(fetchProfileData({ data }));
       dispatch(onChangeAuth());
-      dispatch(toggleUnauthorized(true));
+      dispatch(toggleUnauthorized(false));
       dispatch(toggleIsFetching());
     } catch {
-      dispatch(toggleUnauthorized(false));
+      dispatch(toggleUnauthorized(true));
       dispatch(toggleIsFetching());
     }
   };

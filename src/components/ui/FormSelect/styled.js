@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Select from "react-select";
-export const SingleSelect = styled(Select)`
+
+export const InputSelect = styled(Select)`
   .Select__control {
     min-height: 40px;
     box-shadow: none;

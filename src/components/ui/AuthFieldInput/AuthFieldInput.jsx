@@ -7,7 +7,7 @@ const AuthFieldInput = ({
   autoComplete = "off",
   icon = "user",
   isShowError = false,
-  unauthorized = true,
+  unauthorized = false,
 }) => {
   return (
     <InputWrapper>
@@ -18,12 +18,12 @@ const AuthFieldInput = ({
       {isShowError && meta.error && meta.submitFailed && (
         <ErrorMassage>{meta.error}</ErrorMassage>
       )}
-      {!unauthorized && input.type !== "email" && (
+      {unauthorized && input.type === "email" && (
         <ErrorMassage>
           Invalid login credentials. Please try again.
         </ErrorMassage>
       )}
-      {!unauthorized && input.type === "email" && (
+      {unauthorized && input.type === "email" && (
         <ErrorMassage>Email has already been taken.</ErrorMassage>
       )}
     </InputWrapper>

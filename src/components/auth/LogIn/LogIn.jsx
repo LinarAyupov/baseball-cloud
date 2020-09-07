@@ -1,4 +1,8 @@
 import React from "react";
+import {
+  getIsFetchingState,
+  getUnauthorizedState,
+} from "../../../selectors/selectors";
 import { Form, Field } from "react-final-form";
 import { InputsWrapper, Forgotten } from "./styled";
 import AuthContainer from "../../commons/AuthContainer";
@@ -62,8 +66,8 @@ const LogIn = ({ singIn, isFetching, unauthorized }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.authData.isFetching,
-    unauthorized: state.authData.unauthorized,
+    isFetching: getIsFetchingState,
+    unauthorized: getUnauthorizedState,
   };
 };
 
