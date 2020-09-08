@@ -1,22 +1,31 @@
 import React from "react";
+import { Header, HeaderTitle, HeaderButtonsWrap, ClearBtn } from "./styled";
 import {
-  Header,
-  HeaderTitle,
-  HeaderButtonsWrap,
-  ClearBtn,
-  TypeButton,
-} from "./styled";
+  TableWrap,
+  TableHeader,
+  TableHeaderItem,
+  TableCountWrap,
+  TableCount,
+  SpaceRow,
+  NowInfo,
+} from "../../../commonStyles/styled";
 import DateButton from "../../commons/DateButton";
-import CalenderArrowSvg from "../../SvgComponents/CalenderArrowSvg";
-const SessionReports = () => {
-  const arr = [
-    {
-      date: "17/10/2018",
-      event_name: "Scorps vs. Scorps",
-      event_type: "Game",
-      id: "89",
-    },
-  ];
+import DropDownBtn from "../../ui/DropDownBtn";
+const SessionReports = ({ events }) => {
+  const typeOptions = ["None", "Game", "Practice"];
+  const renderEvents = ({ events }) => {
+    return events.map((e) => (
+      <>
+        <TableCountWrap>
+          <TableCount>{e.date}</TableCount>
+          <TableCount>{e.event_type}</TableCount>
+          <TableCount>{e.event_name}</TableCount>
+          <TableCount>{e.purchased ? e.purchased : ""}</TableCount>
+        </TableCountWrap>
+        <SpaceRow></SpaceRow>
+      </>
+    ));
+  };
   return (
     <>
       <Header>
@@ -24,11 +33,23 @@ const SessionReports = () => {
         <HeaderButtonsWrap>
           <ClearBtn>Clear Filters</ClearBtn>
           <DateButton />
-          <TypeButton>
-            Type <CalenderArrowSvg />
-          </TypeButton>
+          <DropDownBtn options={typeOptions} isShowValue={true} title="Type" />
         </HeaderButtonsWrap>
       </Header>
+      <TableWrap>
+        <TableHeader>
+          <TableHeaderItem>Date</TableHeaderItem>
+          <TableHeaderItem>Type</TableHeaderItem>
+          <TableHeaderItem>Name</TableHeaderItem>
+          <TableHeaderItem>Purchased</TableHeaderItem>
+        </TableHeader>
+        {events ? renderEvents({ events }) : ""}
+      </TableWrap>
+      {!events ? (
+        <NowInfo>The player haven't had any sessions yet!</NowInfo>
+      ) : (
+        ""
+      )}
     </>
   );
 };

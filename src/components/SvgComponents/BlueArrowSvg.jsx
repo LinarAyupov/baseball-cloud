@@ -1,6 +1,6 @@
 import * as React from "react";
 
-function CalenderArrowSvg(props) {
+function BlueArrowSvg(props) {
   return (
     <svg width={16} height={9} viewBox="0 0 16 9" {...props}>
       <path
@@ -11,4 +11,4 @@ function CalenderArrowSvg(props) {
   );
 }
 
-export default CalenderArrowSvg;
+export default BlueArrowSvg;

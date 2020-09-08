@@ -4,7 +4,7 @@ import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { InputButton, CalenderIcon, ArrowIcon, Container } from "./styled";
 import CalenderSvg from "../../SvgComponents/CalenderSvg";
-import CalenderArrowSvg from "../../SvgComponents/CalenderArrowSvg";
+import BlueArrowSvg from "../../SvgComponents/BlueArrowSvg";
 
 const DateButton = () => {
   const [date, setDate] = useState(new Date());
@@ -16,7 +16,7 @@ const DateButton = () => {
       </CalenderIcon>
       Date
       <ArrowIcon isOpen={isOpen}>
-        <CalenderArrowSvg />
+        <BlueArrowSvg />
       </ArrowIcon>
     </InputButton>
   );

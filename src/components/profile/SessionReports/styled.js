@@ -26,16 +26,3 @@ export const ClearBtn = styled.button`
   color: #48bbff;
   margin-right: 20px;
 `;
-
-export const TypeButton = styled.button`
-  display: flex;
-  align-items: center;
-  padding: 0;
-  font-size: 16px;
-  line-height: 1.19;
-  color: #48bbff;
-  background-color: #fff;
-  outline: none;
-  border: none;
-  margin-left: 15px;
-`;

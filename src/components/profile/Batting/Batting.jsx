@@ -7,8 +7,8 @@ import {
   TableCountWrap,
   TableCount,
   SpaceRow,
-} from "./styled";
-import { NowInfo } from "../../../commonStyles/styled";
+  NowInfo,
+} from "../../../commonStyles/styled";
 
 const Batting = ({ topValues, averageValues }) => {
   const renderTopValues = (battings) => {

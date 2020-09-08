@@ -9,6 +9,7 @@ import {
 } from "./styled";
 import Batting from "../Batting";
 import SessionReports from "../SessionReports";
+import Log from "../Log";
 const Statistics = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -38,7 +39,9 @@ const Statistics = () => {
           <SessionReports />
         </TabPanelWrap>
         <TabPanelWrap>Сomparison</TabPanelWrap>
-        <TabPanelWrap>Log</TabPanelWrap>
+        <TabPanelWrap>
+          <Log />
+        </TabPanelWrap>
       </TabsWrap>
     </ContentContainer>
   );

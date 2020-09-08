@@ -1,28 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditSidebar from "../components/profile/EditSidebar";
-import { connect } from "react-redux";
-import {
-  getProfileCurrents,
-  getSchools,
-  getTeams,
-  getFacilities,
-  updateProfile,
-  uploadPhoto,
-} from "../actions/profileActions";
-import {
-  getProfileState,
-  getFirstPositionsState,
-  getSecondPositionsState,
-  getSchoolYearsState,
-  getSchoolsState,
-  getHandsSidesState,
-  getTeamsState,
-  getFacilitiesState,
-  getIsFetchingState,
-} from "../selectors/selectors";
 import InfoSidebar from "../components/profile/InfoSidebar/InfoSidebar";
 const SidebarContainer = ({
-  getProfileCurrents,
   profileCurrents,
   firstPositions,
   secondPositions,
@@ -30,11 +9,8 @@ const SidebarContainer = ({
   handsSides,
   facilitiesList,
   updateProfile,
-  getFacilities,
   isFetching,
-  getSchools,
   uploadPhoto,
-  getTeams,
   schools,
   teams,
 }) => {
@@ -44,13 +20,6 @@ const SidebarContainer = ({
       setIsEdit(true);
     }
   }, [profileCurrents]);
-  useEffect(() => {
-    let searchText = "";
-    getProfileCurrents();
-    getSchools({ searchText });
-    getTeams({ searchText });
-    getFacilities({ searchText });
-  }, [getProfileCurrents, getSchools, getTeams, getFacilities]);
   const formattingFacilities = (list) => {
     if (list) {
       return list.map((f) => ({
@@ -96,27 +65,5 @@ const SidebarContainer = ({
     </>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    profileCurrents: getProfileState(state),
-    firstPositions: getFirstPositionsState(state),
-    secondPositions: getSecondPositionsState(state),
-    schoolYears: getSchoolYearsState(state),
-    handsSides: getHandsSidesState(state),
-    teams: getTeamsState(state),
-    facilitiesList: getFacilitiesState(state),
-    isFetching: getIsFetchingState(state),
-    schools: getSchoolsState(state),
-  };
-};
 
-const mapDispatchToProps = {
-  getProfileCurrents,
-  getSchools,
-  getTeams,
-  getFacilities,
-  updateProfile,
-  uploadPhoto,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);
+export default SidebarContainer;

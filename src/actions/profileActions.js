@@ -59,10 +59,10 @@ const fetchEvents = ({ events }) => {
   };
 };
 
-const fetchBattingSummary = ({ battingSummary }) => {
+const fetchBattingSummary = ({ batting_summary }) => {
   return {
     type: FETCH_BATTING_SUMMARY,
-    payload: { battingSummary },
+    payload: { battingSummary: batting_summary },
   };
 };
 
@@ -136,5 +136,13 @@ export const uploadPhoto = ({ imageFile }) => {
     if (response) {
       dispatch(toggleIsFetching(false));
     }
+  };
+};
+
+export const getButtingSummary = ({ userId }) => {
+  console.log(userId);
+  return async (dispatch) => {
+    const response = await ApiServices.getButtingSummary({ userId });
+    console.log(response);
   };
 };

@@ -146,6 +146,20 @@ class ApiServices {
       throw err;
     }
   };
+  getButtingSummary = async ({ userId }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_BUTTING_SUMMARY),
+        variables: {
+          id: userId,
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
 }
 
 export default new ApiServices();

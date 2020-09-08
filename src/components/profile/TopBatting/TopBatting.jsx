@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ValuesWrap,
   Value,
@@ -9,10 +9,19 @@ import {
 import { ContentContainer, ContentTitle } from "../../../commonStyles/styled";
 import ProgressBarSvg from "../../SvgComponents/ProgressBarSvg";
 
-const TopBatting = ({ distance = 0, exit_velocity = 0, launch_angle = 0 }) => {
+const TopBatting = ({
+  distance = 0,
+  exit_velocity = 0,
+  launch_angle = 0,
+  getButtingSummary,
+  userId,
+}) => {
   const exitVelocityMaxValue = 142.31;
   const carryDistanceMaxValue = 500;
   const launchAngelMaxValue = 50;
+  getButtingSummary({ userId });
+  useEffect(() => getButtingSummary({ userId }), [getButtingSummary, userId]);
+
   const getPercent = (currentValue, maxValue) => {
     return (currentValue / maxValue) * 100;
   };
