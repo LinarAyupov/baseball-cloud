@@ -10,9 +10,9 @@ import {
 import Batting from "../Batting";
 import SessionReports from "../SessionReports";
 import Log from "../Log";
-const Statistics = () => {
+import Comparison from "../Comparison/Comparison";
+const Statistics = ({ userId, AuthUser }) => {
   const [tabIndex, setTabIndex] = useState(0);
-
   return (
     <ContentContainer>
       <TabsWrap
@@ -33,14 +33,16 @@ const Statistics = () => {
           </TabListWrap>
         </TabListWrap>
         <TabPanelWrap>
-          <Batting />
+          <Batting userId={userId} />
         </TabPanelWrap>
         <TabPanelWrap>
-          <SessionReports />
+          <SessionReports userId={userId} />
         </TabPanelWrap>
-        <TabPanelWrap>Сomparison</TabPanelWrap>
         <TabPanelWrap>
-          <Log />
+          <Comparison AuthUser={AuthUser} />
+        </TabPanelWrap>
+        <TabPanelWrap>
+          <Log userId={userId} />
         </TabPanelWrap>
       </TabsWrap>
     </ContentContainer>

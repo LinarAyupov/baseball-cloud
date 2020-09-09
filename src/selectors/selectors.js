@@ -11,3 +11,15 @@ export const getSecondPositionsState = (state) =>
   state.profileData.secondPositions;
 export const getSchoolYearsState = (state) => state.profileData.schoolYears;
 export const getHandsSidesState = (state) => state.profileData.handsSides;
+export const getTopBattingsState = (state) => state.battingData.topValues;
+export const getAverageBattingsState = (state) =>
+  state.battingData.averageValues;
+export const getBattingLogState = (state) => state.battingData.battingLog;
+export const getBattingTotalCountState = (state) =>
+  state.battingData.totalCount;
+export const getProfileEventsState = (state) => state.eventsData.events;
+export const getEventsTotalCountState = (state) => state.eventsData.totalCount;
+export const getFilteredPlayersState = (state) =>
+  state.comparisonDate.filteredPlayers;
+export const getComparisonPlayerState = (state) =>
+  state.comparisonDate.choosedProfile;

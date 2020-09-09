@@ -5,7 +5,6 @@ export const FETCH_FACILITIES = "FETCH-FACILITIES";
 export const FETCH_LEADERBOARD_BATTING = "FETCH-LEADERBOARD-BATTING";
 export const FETCH_NOTIFICATIONS = "FETCH-NOTIFICATIONS";
 export const FETCH_EVENTS = "FETCH-EVENTS";
-export const FETCH_BATTING_SUMMARY = "FETCH-BATTING-SUMMARY";
 
 const initialState = {
   profileCurrents: {},
@@ -15,7 +14,6 @@ const initialState = {
   leaderboardBatting: [],
   notifications: [],
   events: [],
-  battingSummary: {},
   firstPositions: [
     { id: "catcher", name: "Catcher" },
     { id: "first_base", name: "First Base" },
@@ -81,12 +79,6 @@ const actionMap = {
     return {
       ...state,
       events: action.payload.events,
-    };
-  },
-  [FETCH_BATTING_SUMMARY]: (state, action) => {
-    return {
-      ...state,
-      battingSummary: action.payload.battingSummary,
     };
   },
 };

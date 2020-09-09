@@ -20,7 +20,7 @@ export const HeaderButtonsWrap = styled.div`
 export const ClearBtn = styled.button`
   border: none;
   background-color: #fff;
-  padding: 0 0 5px;
+  padding: 0 0 10px;
   font-size: 16px;
   line-height: 1.19;
   color: #48bbff;

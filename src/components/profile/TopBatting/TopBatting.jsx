@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   ValuesWrap,
   Value,
@@ -9,19 +9,14 @@ import {
 import { ContentContainer, ContentTitle } from "../../../commonStyles/styled";
 import ProgressBarSvg from "../../SvgComponents/ProgressBarSvg";
 
-const TopBatting = ({
-  distance = 0,
-  exit_velocity = 0,
-  launch_angle = 0,
-  getButtingSummary,
-  userId,
-}) => {
+const TopBatting = ({ topValues, userId }) => {
+  let values = {};
   const exitVelocityMaxValue = 142.31;
   const carryDistanceMaxValue = 500;
   const launchAngelMaxValue = 50;
-  getButtingSummary({ userId });
-  useEffect(() => getButtingSummary({ userId }), [getButtingSummary, userId]);
-
+  if (topValues && topValues.length !== 0) {
+    values = topValues[0];
+  }
   const getPercent = (currentValue, maxValue) => {
     return (currentValue / maxValue) * 100;
   };
@@ -33,36 +28,39 @@ const TopBatting = ({
         <Value>
           <ValueHeader>
             <ValueTitle>Exit Velocity</ValueTitle>
-            <ValueCount>{exit_velocity || "N/A"}</ValueCount>
+            <ValueCount>{values.exit_velocity || "N/A"}</ValueCount>
           </ValueHeader>
           <ProgressBarSvg
             height={4}
             width={"100%"}
-            percent={getPercent(exit_velocity, exitVelocityMaxValue)}
+            percent={getPercent(
+              values.exit_velocity || 0,
+              exitVelocityMaxValue
+            )}
           />
         </Value>
 
         <Value>
           <ValueHeader>
             <ValueTitle>Carry Distance</ValueTitle>
-            <ValueCount>{distance || "N/A"}</ValueCount>
+            <ValueCount>{values.distance || "N/A"}</ValueCount>
           </ValueHeader>
           <ProgressBarSvg
             height={4}
             width={"100%"}
-            percent={getPercent(distance, carryDistanceMaxValue)}
+            percent={getPercent(values.distance || 0, carryDistanceMaxValue)}
           />
         </Value>
 
         <Value>
           <ValueHeader>
             <ValueTitle>Launch Angle</ValueTitle>
-            <ValueCount>{launch_angle || "N/A"}</ValueCount>
+            <ValueCount>{values.launch_angle || "N/A"}</ValueCount>
           </ValueHeader>
           <ProgressBarSvg
             height={4}
             width={"100%"}
-            percent={getPercent(launch_angle, launchAngelMaxValue)}
+            percent={getPercent(values.launch_angle || 0, launchAngelMaxValue)}
           />
         </Value>
       </ValuesWrap>

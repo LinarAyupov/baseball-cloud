@@ -1,5 +1,22 @@
 import gql from "graphql-tag";
 
+export const FILTER_PROFILE_NAMES = gql`
+  query ProfileNames($input: FilterProfileNamesInput!) {
+    profile_names(input: $input) {
+      profile_names {
+        id
+        position
+        first_name
+        last_name
+        inches
+        feet
+        weight
+        age
+      }
+    }
+  }
+`;
+
 export const GET_PROFILE_CURRENTS = gql`
   query {
     current_profile {
@@ -29,6 +46,11 @@ export const GET_PROFILE_CURRENTS = gql`
         id
         email
         u_name
+      }
+      batter_summary {
+        exit_velocity
+        distance
+        launch_angle
       }
     }
   }
@@ -272,6 +294,42 @@ export const GET_BATTING_LOG = gql`
         pitcher_datraks_id
       }
       total_count
+    }
+  }
+`;
+
+export const GET_COMPARISON_PLAYER = gql`
+  query Profile($id: String!) {
+    profile(id: $id) {
+      id
+      first_name
+      last_name
+      avatar
+      feet
+      inches
+      weight
+      age
+      batting_top_values {
+        pitch_type
+        distance
+        launch_angle
+        exit_velocity
+      }
+      pitching_top_values {
+        velocity
+        spin_rate
+        pitch_type
+      }
+      pitcher_summary {
+        velocity
+        spin_rate
+        horizontal_break
+      }
+      batter_summary {
+        exit_velocity
+        distance
+        launch_angle
+      }
     }
   }
 `;

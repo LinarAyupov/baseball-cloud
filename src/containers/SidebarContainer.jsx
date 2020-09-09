@@ -1,7 +1,28 @@
 import React, { useEffect, useState } from "react";
 import EditSidebar from "../components/profile/EditSidebar";
 import InfoSidebar from "../components/profile/InfoSidebar/InfoSidebar";
+import { connect } from "react-redux";
+import {
+  getSchools,
+  getTeams,
+  getFacilities,
+  updateProfile,
+  uploadPhoto,
+} from "../actions/profileActions";
+import {
+  getFirstPositionsState,
+  getSecondPositionsState,
+  getSchoolYearsState,
+  getSchoolsState,
+  getHandsSidesState,
+  getTeamsState,
+  getFacilitiesState,
+  getIsFetchingState,
+} from "../selectors/selectors";
 const SidebarContainer = ({
+  getSchools,
+  getTeams,
+  getFacilities,
   profileCurrents,
   firstPositions,
   secondPositions,
@@ -15,6 +36,12 @@ const SidebarContainer = ({
   teams,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
+  useEffect(() => {
+    let searchText = "";
+    getSchools({ searchText });
+    getTeams({ searchText });
+    getFacilities({ searchText });
+  }, [getSchools, getTeams, getFacilities]);
   useEffect(() => {
     if (!profileCurrents.first_name) {
       setIsEdit(true);
@@ -66,4 +93,25 @@ const SidebarContainer = ({
   );
 };
 
-export default SidebarContainer;
+const mapStateToProps = (state) => {
+  return {
+    firstPositions: getFirstPositionsState(state),
+    secondPositions: getSecondPositionsState(state),
+    schoolYears: getSchoolYearsState(state),
+    handsSides: getHandsSidesState(state),
+    teams: getTeamsState(state),
+    facilitiesList: getFacilitiesState(state),
+    isFetching: getIsFetchingState(state),
+    schools: getSchoolsState(state),
+  };
+};
+
+const mapDispatchToProps = {
+  getSchools,
+  getTeams,
+  getFacilities,
+  updateProfile,
+  uploadPhoto,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);

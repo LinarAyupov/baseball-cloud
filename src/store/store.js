@@ -3,10 +3,16 @@ import reduxThunk from "redux-thunk";
 import authReducer from "../reducers/authReducer";
 import profileReducer from "../reducers/profileReducer";
 import StorageServices from "../utils/StorageServices";
+import battingReducers from "../reducers/battingReducer";
+import eventsReducer from "../reducers/eventsReducer";
+import comparisonReducer from "../reducers/comparisonReducer";
 
 const reducers = combineReducers({
   authData: authReducer,
   profileData: profileReducer,
+  battingData: battingReducers,
+  eventsData: eventsReducer,
+  comparisonDate: comparisonReducer,
 });
 
 const localState = StorageServices.loadState();

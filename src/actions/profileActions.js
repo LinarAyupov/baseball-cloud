@@ -59,13 +59,6 @@ const fetchEvents = ({ events }) => {
   };
 };
 
-const fetchBattingSummary = ({ batting_summary }) => {
-  return {
-    type: FETCH_BATTING_SUMMARY,
-    payload: { battingSummary: batting_summary },
-  };
-};
-
 //----------------Thunks------------------------------
 
 export const getProfileCurrents = () => {
@@ -131,18 +124,14 @@ export const updateProfile = ({ profileCounts }) => {
 
 export const uploadPhoto = ({ imageFile }) => {
   return async (dispatch) => {
-    dispatch(toggleIsFetching(true));
-    const response = await ApiServices.uploadPhoto({ imageFile });
-    if (response) {
+    try {
+      dispatch(toggleIsFetching(true));
+      const response = await ApiServices.uploadPhoto({ imageFile });
+      if (response) {
+        dispatch(toggleIsFetching(false));
+      }
+    } catch (err) {
       dispatch(toggleIsFetching(false));
     }
-  };
-};
-
-export const getButtingSummary = ({ userId }) => {
-  console.log(userId);
-  return async (dispatch) => {
-    const response = await ApiServices.getButtingSummary({ userId });
-    console.log(response);
   };
 };

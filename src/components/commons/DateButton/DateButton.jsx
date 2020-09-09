@@ -6,9 +6,10 @@ import { InputButton, CalenderIcon, ArrowIcon, Container } from "./styled";
 import CalenderSvg from "../../SvgComponents/CalenderSvg";
 import BlueArrowSvg from "../../SvgComponents/BlueArrowSvg";
 
-const DateButton = () => {
+const DateButton = ({ getDate }) => {
   const [date, setDate] = useState(new Date());
   const [isOpen, setIsOpened] = useState(false);
+
   const CustomInput = ({ onClick }) => (
     <InputButton onClick={onClick}>
       <CalenderIcon>
@@ -20,6 +21,7 @@ const DateButton = () => {
       </ArrowIcon>
     </InputButton>
   );
+
   const CustomContainer = ({ className, children }) => {
     useEffect(() => {
       setIsOpened(true);
@@ -33,7 +35,10 @@ const DateButton = () => {
     <DatePicker
       selected={date}
       dateFormat="MMM YYY"
-      onChange={(date) => setDate(date)}
+      onChange={(date) => {
+        setDate(date);
+        getDate(moment(date).format("DD-MM-YYYY"));
+      }}
       customInput={<CustomInput />}
       calendarContainer={CustomContainer}
       popperPlacement="bottom-end"

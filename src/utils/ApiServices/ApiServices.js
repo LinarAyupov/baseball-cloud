@@ -8,11 +8,12 @@ import {
   GET_LEADERBOARD_BATTING,
   GET_TEAMS,
   GET_FACILITIES,
-  GET_PROFILE_FULLDATA,
   GET_PROFILE_EVENTS,
   GET_BUTTING_SUMMARY,
   UPDATE_PROFILE_DATA,
   GET_BATTING_LOG,
+  FILTER_PROFILE_NAMES,
+  GET_COMPARISON_PLAYER,
 } from "../queries";
 
 class ApiServices {
@@ -146,13 +147,93 @@ class ApiServices {
       throw err;
     }
   };
-  getButtingSummary = async ({ userId }) => {
+  getBattingSummary = async ({ userId }) => {
     try {
       const request = await this.axiosInstance();
       const response = await request.post("/graphql", {
         query: print(GET_BUTTING_SUMMARY),
         variables: {
           id: userId,
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  getBattingLog = async ({
+    userId,
+    count,
+    offset,
+    pitcherType,
+    searchName,
+  }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_BATTING_LOG),
+        variables: {
+          input: {
+            count,
+            offset,
+            profile_id: userId,
+            pitch_type: pitcherType,
+            pitcher_name: searchName,
+          },
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+  getProfileEvents = async ({ userId, count, offset, date, eventType }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_PROFILE_EVENTS),
+        variables: {
+          input: {
+            count,
+            offset,
+            date,
+            profile_id: userId,
+            event_type: eventType,
+          },
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  filterProfileNames = async ({ playerName }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(FILTER_PROFILE_NAMES),
+        variables: {
+          input: {
+            player_name: playerName,
+            position: "first_base",
+          },
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+  getComparisonPlayer = async ({ id }) => {
+    console.log(id);
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_COMPARISON_PLAYER),
+        variables: {
+          id,
         },
       });
       return response;

@@ -6,13 +6,19 @@ const DropDownBtn = ({
   options,
   isShowValue = false,
   title = "",
+  onChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState("");
 
   const getValue = ({ target }) => {
     const { innerHTML } = target;
+    let searchType = innerHTML;
+    if (searchType === "None") {
+      searchType = "";
+    }
     setValue(innerHTML);
+    onChange(searchType);
   };
   const renderOptions = () => {
     if (options) {
