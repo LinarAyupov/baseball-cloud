@@ -7,9 +7,10 @@ import {
 import ApiServices from "../utils/ApiServices";
 import StorageServices from "../utils/StorageServices";
 
-export const toggleIsFetching = () => {
+export const toggleIsFetching = (status) => {
   return {
     type: IS_FETCHING,
+    payload: { status },
   };
 };
 

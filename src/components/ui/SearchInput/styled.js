@@ -3,10 +3,14 @@ import styled from "styled-components";
 export const InputWrap = styled.div`
   position: relative;
   display: flex;
+  justify-content: flex-end;
+  margin-left: 15px;
 `;
 export const IconWrap = styled.div`
   display: flex;
-  align-items: center;
+  padding: 14px 0;
+  margin-left: -13px;
+  cursor: pointer;
   transform: rotate(0);
   transition: transform 0.5s;
 `;
@@ -14,20 +18,20 @@ export const IconWrap = styled.div`
 export const Input = styled.input`
   display: block;
   width: ${({ width }) => (width ? width : "66px")};
-  padding: 5px 24px 5px 5px;
+  padding: 5px 5px 7px 0;
   font-size: 16px;
   line-height: 19px;
   font-weight: 400;
   color: #788b99;
   border: none;
   outline: none;
-  border-bottom: 1px solid #48bbff;
+  border-bottom: ${({ border }) => (border ? "1px solid #48bbff" : "none")};
   transition: width 0.5s;
   &::placeholder {
     color: #48bbff;
   }
   &:focus {
-    width: 100%;
+    width: 166px;
     &::placeholder {
       color: #788b99;
     }

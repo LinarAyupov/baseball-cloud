@@ -21,6 +21,8 @@ const PlayerProfile = ({ getProfileCurrents, profileCurrents }) => {
     feet,
     inches,
     batter_summary,
+    batting_top_values,
+    position,
     avatar,
   } = profileCurrents;
   return (
@@ -31,7 +33,7 @@ const PlayerProfile = ({ getProfileCurrents, profileCurrents }) => {
         <RecentReports />
         <Statistics
           userId={id}
-          AuthUser={{
+          profilePlayer={{
             first_name,
             last_name,
             age,
@@ -39,6 +41,8 @@ const PlayerProfile = ({ getProfileCurrents, profileCurrents }) => {
             feet,
             inches,
             avatar,
+            batting_top_values,
+            position,
           }}
         />
       </ContentWrapper>

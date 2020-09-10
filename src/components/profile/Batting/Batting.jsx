@@ -19,13 +19,13 @@ import {
 const Batting = ({ topValues, averageValues, getBattingSummary, userId }) => {
   useEffect(() => {
     if (userId) {
-      getBattingSummary({ userId });
+      getBattingSummary({ userId: 415 });
     }
   }, [getBattingSummary, userId]);
 
   const renderTopValues = (battings) => {
     return battings.map((bat) => (
-      <>
+      <tbody key={bat.distance}>
         <TableCountWrap>
           <TableCount>{bat.pitch_type}</TableCount>
           <TableCount>{bat.distance}</TableCount>
@@ -33,7 +33,7 @@ const Batting = ({ topValues, averageValues, getBattingSummary, userId }) => {
           <TableCount>{bat.exit_velocity}</TableCount>
         </TableCountWrap>
         <SpaceRow></SpaceRow>
-      </>
+      </tbody>
     ));
   };
   if (averageValues.length === 0 && topValues.length === 0) {
@@ -43,22 +43,27 @@ const Batting = ({ topValues, averageValues, getBattingSummary, userId }) => {
     <>
       <TableWrap>
         <TableTitle>Top Batting Values</TableTitle>
-        <TableHeader>
-          <TableHeaderItem>Pitch Type</TableHeaderItem>
-          <TableHeaderItem>Distance</TableHeaderItem>
-          <TableHeaderItem>Launch Angle</TableHeaderItem>
-          <TableHeaderItem>Exit Velocity</TableHeaderItem>
-        </TableHeader>
+        <tbody>
+          <TableHeader>
+            <TableHeaderItem>Pitch Type</TableHeaderItem>
+            <TableHeaderItem>Distance</TableHeaderItem>
+            <TableHeaderItem>Launch Angle</TableHeaderItem>
+            <TableHeaderItem>Exit Velocity</TableHeaderItem>
+          </TableHeader>
+        </tbody>
         {topValues && renderTopValues(topValues)}
       </TableWrap>
       <TableWrap>
         <TableTitle>Average Batting Values</TableTitle>
-        <TableHeader>
-          <TableHeaderItem>Pitch Type</TableHeaderItem>
-          <TableHeaderItem>Distance</TableHeaderItem>
-          <TableHeaderItem>Launch Angle</TableHeaderItem>
-          <TableHeaderItem>Exit Velocity</TableHeaderItem>
-        </TableHeader>
+        <tbody>
+          <TableHeader>
+            <TableHeaderItem>Pitch Type</TableHeaderItem>
+            <TableHeaderItem>Distance</TableHeaderItem>
+            <TableHeaderItem>Launch Angle</TableHeaderItem>
+            <TableHeaderItem>Exit Velocity</TableHeaderItem>
+          </TableHeader>
+        </tbody>
+
         {averageValues && renderTopValues(averageValues)}
       </TableWrap>
     </>

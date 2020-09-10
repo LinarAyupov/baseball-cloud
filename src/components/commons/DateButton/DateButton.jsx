@@ -10,8 +10,8 @@ const DateButton = ({ getDate }) => {
   const [date, setDate] = useState(new Date());
   const [isOpen, setIsOpened] = useState(false);
 
-  const CustomInput = ({ onClick }) => (
-    <InputButton onClick={onClick}>
+  const CustomInput = React.forwardRef((props, ref) => (
+    <InputButton onClick={props.onClick} ref={ref}>
       <CalenderIcon>
         <CalenderSvg />
       </CalenderIcon>
@@ -20,7 +20,7 @@ const DateButton = ({ getDate }) => {
         <BlueArrowSvg />
       </ArrowIcon>
     </InputButton>
-  );
+  ));
 
   const CustomContainer = ({ className, children }) => {
     useEffect(() => {

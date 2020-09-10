@@ -80,14 +80,17 @@ const Log = ({ userId, getBattingLog, battingLog, totalCount }) => {
       </Header>
       <TableWrap>
         <TableTitle>Batting Log</TableTitle>
-        <TableHeader>
-          <TableHeaderItem>Date</TableHeaderItem>
-          <TableHeaderItem>Pitcher Name</TableHeaderItem>
-          <TableHeaderItem>Pitcher Handedness</TableHeaderItem>
-          <TableHeaderItem>Pitch Type</TableHeaderItem>
-          <TableHeaderItem>Pitch Call</TableHeaderItem>
-        </TableHeader>
-        <tbody>{renderLogs({ battingLog })}</tbody>
+
+        <tbody>
+          <TableHeader>
+            <TableHeaderItem>Date</TableHeaderItem>
+            <TableHeaderItem>Pitcher Name</TableHeaderItem>
+            <TableHeaderItem>Pitcher Handedness</TableHeaderItem>
+            <TableHeaderItem>Pitch Type</TableHeaderItem>
+            <TableHeaderItem>Pitch Call</TableHeaderItem>
+          </TableHeader>
+          {renderLogs({ battingLog })}
+        </tbody>
       </TableWrap>
       {totalCount > count ? (
         <Paginator

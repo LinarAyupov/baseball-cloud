@@ -52,6 +52,12 @@ export const GET_PROFILE_CURRENTS = gql`
         distance
         launch_angle
       }
+      batting_top_values {
+        pitch_type
+        distance
+        launch_angle
+        exit_velocity
+      }
     }
   }
 `;

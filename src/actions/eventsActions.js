@@ -1,6 +1,6 @@
 import { FETCH_EVENTS } from "../reducers/eventsReducer";
 import ApiServices from "../utils/ApiServices";
-
+import { toggleIsFetching } from "./authActions";
 const fetchEvents = ({ events, total_count }) => {
   return {
     type: FETCH_EVENTS,
@@ -21,6 +21,7 @@ export const getProfileEvents = ({
   offset,
 }) => {
   return async (dispatch) => {
+    dispatch(toggleIsFetching(true));
     try {
       const { data } = await ApiServices.getProfileEvents({
         userId,
@@ -31,8 +32,9 @@ export const getProfileEvents = ({
       });
       const { events, total_count } = data.data.profile_events;
       dispatch(fetchEvents({ events, total_count }));
+      dispatch(toggleIsFetching(false));
     } catch (err) {
-      throw err;
+      dispatch(toggleIsFetching(false));
     }
   };
 };

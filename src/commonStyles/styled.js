@@ -90,6 +90,7 @@ export const TableWrap = styled.table`
   width: 100%;
   border: none;
   margin-top: 15px;
+  table-layout: fixed;
 `;
 
 export const TableTitle = styled.caption`
@@ -100,7 +101,7 @@ export const TableTitle = styled.caption`
   line-height: 1.25;
 `;
 
-export const TableHeader = styled.thead`
+export const TableHeader = styled.tr`
   height: 44px;
   margin-bottom: 6px;
 `;

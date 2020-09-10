@@ -4,6 +4,7 @@ import { MainContainer } from "../../../commonStyles/styled";
 import Header from "../../../layout/Header";
 import Footer from "../../../layout/Footer";
 import PlayerProfile from "../PlayerProfile";
+import LeaderBoard from "../LeaderBoard";
 import { connect } from "react-redux";
 
 const ProfilePage = ({
@@ -26,7 +27,8 @@ const ProfilePage = ({
         userName={userName}
         userLastName={userLastName}
       />
-      <Route path="/profile" render={() => <PlayerProfile />} />
+      <Route path="/profile/:userId?" render={() => <PlayerProfile />} />
+      <Route path="/leaderboard" render={() => <LeaderBoard />} />
       <Footer />
     </MainContainer>
   );

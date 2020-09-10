@@ -39,3 +39,8 @@ export const UserInfoHeader = styled.div`
   align-items: center;
   margin-bottom: 20px;
 `;
+
+export const ButtonWrap = styled.span`
+  margin-bottom: 21px;
+  width: 40%;
+`;

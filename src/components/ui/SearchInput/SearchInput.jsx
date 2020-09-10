@@ -11,6 +11,7 @@ const SearchInput = ({
   getValue,
   getId,
   placeholder,
+  border = false,
 }) => {
   const [dropdownActive, setDropdownActive] = useState(false);
   const renderOptions = ({ options }) => {
@@ -27,6 +28,7 @@ const SearchInput = ({
         iconType={iconType}
         placeholder={placeholder}
         width={width}
+        border={border}
         onChange={(e) => getValue(e.target.value)}
         onFocus={() => setDropdownActive(true)}
         onBlur={() => setTimeout(() => setDropdownActive(false), 300)}

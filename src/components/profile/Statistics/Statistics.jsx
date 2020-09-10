@@ -11,7 +11,7 @@ import Batting from "../Batting";
 import SessionReports from "../SessionReports";
 import Log from "../Log";
 import Comparison from "../Comparison/Comparison";
-const Statistics = ({ userId, AuthUser }) => {
+const Statistics = ({ userId, profilePlayer }) => {
   const [tabIndex, setTabIndex] = useState(0);
   return (
     <ContentContainer>
@@ -39,7 +39,7 @@ const Statistics = ({ userId, AuthUser }) => {
           <SessionReports userId={userId} />
         </TabPanelWrap>
         <TabPanelWrap>
-          <Comparison AuthUser={AuthUser} />
+          <Comparison profilePlayer={profilePlayer} />
         </TabPanelWrap>
         <TabPanelWrap>
           <Log userId={userId} />

@@ -209,7 +209,7 @@ class ApiServices {
     }
   };
 
-  filterProfileNames = async ({ playerName }) => {
+  filterProfileNames = async ({ playerName, position }) => {
     try {
       const request = await this.axiosInstance();
       const response = await request.post("/graphql", {
@@ -217,7 +217,7 @@ class ApiServices {
         variables: {
           input: {
             player_name: playerName,
-            position: "first_base",
+            position,
           },
         },
       });
@@ -227,7 +227,6 @@ class ApiServices {
     }
   };
   getComparisonPlayer = async ({ id }) => {
-    console.log(id);
     try {
       const request = await this.axiosInstance();
       const response = await request.post("/graphql", {

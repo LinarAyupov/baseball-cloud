@@ -25,7 +25,6 @@ const SessionReports = ({ events, totalCount, userId, getProfileEvents }) => {
   const typeOptions = ["None", "Game", "Practice"];
   const [eventType, setEventType] = useState("");
   const [date, setDate] = useState("");
-  console.log(date);
   useEffect(() => {
     getProfileEvents({ userId, count, offset, eventType, date });
   }, [getProfileEvents, userId, count, offset, eventType, date]);
@@ -65,15 +64,15 @@ const SessionReports = ({ events, totalCount, userId, getProfileEvents }) => {
         </HeaderButtonsWrap>
       </Header>
       <TableWrap>
-        <TableHeader>
-          <tr>
+        <tbody>
+          <TableHeader>
             <TableHeaderItem>Date</TableHeaderItem>
             <TableHeaderItem>Type</TableHeaderItem>
             <TableHeaderItem>Name</TableHeaderItem>
             <TableHeaderItem>Purchased</TableHeaderItem>
-          </tr>
-        </TableHeader>
-        <tbody>{events ? renderEvents({ events }) : ""}</tbody>
+          </TableHeader>
+          {events ? renderEvents({ events }) : ""}
+        </tbody>
       </TableWrap>
 
       {totalCount > count ? (
@@ -84,7 +83,7 @@ const SessionReports = ({ events, totalCount, userId, getProfileEvents }) => {
         />
       ) : null}
 
-      {!events ? (
+      {!events || events.length === 0 ? (
         <NowInfo>The player haven't had any sessions yet!</NowInfo>
       ) : (
         ""

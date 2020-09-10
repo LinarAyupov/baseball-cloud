@@ -11,10 +11,10 @@ const initialState = {
 };
 
 const actionMap = {
-  [IS_FETCHING]: (state) => {
+  [IS_FETCHING]: (state, action) => {
     return {
       ...state,
-      isFetching: !state.isFetching,
+      isFetching: action.payload.status,
     };
   },
   [UNAUTHORIZED]: (state, action) => {

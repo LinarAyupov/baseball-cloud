@@ -15,12 +15,12 @@ export const HeaderTitle = styled.div`
 
 export const HeaderButtonsWrap = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export const ClearBtn = styled.button`
   border: none;
   background-color: #fff;
-  padding: 0 0 10px;
   font-size: 16px;
   line-height: 1.19;
   color: #48bbff;
