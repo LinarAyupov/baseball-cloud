@@ -71,3 +71,10 @@ export const singUp = ({ userData }) => {
     }
   };
 };
+
+export const logOut = () => {
+  return async (dispatch) => {
+    await localStorage.clear();
+    dispatch(onChangeAuth());
+  };
+};

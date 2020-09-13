@@ -10,16 +10,32 @@ import {
   ProfileNavBtn,
   DownIconWrap,
   DropdownLink,
+  DropdownItem,
 } from "./styled";
 import { DropdownList } from "../../commonStyles/styled";
 import LogoSvg from "../../components/SvgComponents/logoSvg";
 import DownIcon from "../../components/SvgComponents/DownIcon";
+import { withRouter } from "react-router-dom";
 
-const Header = ({ isAuth, avatarUrl = "", userName, userLastName }) => {
+const Header = ({
+  isAuth,
+  avatarUrl = "",
+  userName,
+  userLastName,
+  logOut,
+  history,
+}) => {
   const [dropdownActive, toggleDropdown] = useState(false);
   const toggleDropdownPanel = () => {
     toggleDropdown(!dropdownActive);
   };
+
+  const onLogOut = () => {
+    console.log(history);
+    logOut();
+    history.push("/login");
+  };
+
   return (
     <HeaderWrapper>
       <div>
@@ -30,11 +46,11 @@ const Header = ({ isAuth, avatarUrl = "", userName, userLastName }) => {
 
       {isAuth && (
         <HeaderNav>
-          <NavLink to="leaderboard">
+          <NavLink to="/leaderboard">
             Leaderboard
             <Border className="border" />
           </NavLink>
-          <NavLink to="network">
+          <NavLink to="/network">
             Network
             <Border className="border" />
           </NavLink>
@@ -47,7 +63,9 @@ const Header = ({ isAuth, avatarUrl = "", userName, userLastName }) => {
               </DownIconWrap>
               <DropdownList dropdownActive={dropdownActive}>
                 <DropdownLink to="/profile">My Profile</DropdownLink>
-                <DropdownLink to="/login">Log Qut</DropdownLink>
+                <DropdownItem style={{ width: "100%" }} onClick={onLogOut}>
+                  Log Qut
+                </DropdownItem>
               </DropdownList>
             </ProfileNavBtn>
           </ProfileNav>
@@ -57,4 +75,4 @@ const Header = ({ isAuth, avatarUrl = "", userName, userLastName }) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

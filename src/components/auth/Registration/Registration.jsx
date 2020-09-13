@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Field } from "react-final-form";
 import AuthContainer from "../../commons/AuthContainer";
-import AuthFieldInput from "../../ui/AuthFieldInput";
+import TextInput from "../../ui/TextInput";
 import SubmitButton from "../../ui/SubmitButton";
 import FormValidators from "../../../utils/FormValidators";
 import {
@@ -59,28 +59,31 @@ const Registration = ({ singUp, isFetching, unauthorized }) => {
               type="email"
               validate={FormValidators.fieldRequired}
               placeholder="Email"
-              render={AuthFieldInput}
+              render={TextInput}
               icon="user"
               isShowError={true}
               unauthorized={unauthorized}
+              formType="auth"
             />
             <Field
               name="password"
               type="password"
               autoComplete="new-password"
               placeholder="Password"
-              render={AuthFieldInput}
+              render={TextInput}
               icon="lock"
               isShowError={true}
+              formType="auth"
             />
             <Field
               name="password_confirmation"
               type="password"
               autoComplete="new-password"
               placeholder="Confirm Password"
-              render={AuthFieldInput}
+              render={TextInput}
               icon="check"
               isShowError={true}
+              formType="auth"
             />
             <LegalWrapper>
               <p>

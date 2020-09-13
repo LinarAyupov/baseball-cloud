@@ -1,153 +1,143 @@
-import React, { useState } from "react";
-import {
-  Container,
-  Header,
-  Title,
-  Filters,
-  Tabs,
-  TabBtn,
-  UsersContainer,
-  NameBtn,
-} from "./styled";
+import React, { useState, useEffect } from "react";
+import { Tabs, TabBtn, UsersContainer } from "./styled";
 import DropDownBtn from "../../ui/DropDownBtn";
 import SearchInput from "../../ui/SearchInput";
 import { connect } from "react-redux";
 import {
+  BoardContainer,
+  BoardHeader,
+  BoardTitle,
+  PlayersFilters,
+  HeartIconSmall,
+  BoardUserLink,
   TableWrap,
   TableHeader,
   TableHeaderItem,
   TableCountWrap,
   TableCount,
   SpaceRow,
-  NowInfo,
 } from "../../../commonStyles/styled";
+import { withRouter } from "react-router-dom";
+import {
+  getLeaderboardPlayers,
+  updateFavoriteProfile,
+} from "../../../actions/playersActions";
+import {
+  getPlayersState,
+  getIsFetchingState,
+} from "../../../selectors/selectors";
+import Preloader from "../../ui/Preloader";
 
-const LeaderBoard = () => {
-  const [positionId, setPositionId] = useState("");
-  const [battingType, setBattingType] = useState("exit_velocity");
-  const [pitchingType, setPitchingType] = useState("pitch_velocity");
-  const [dateRange, setDateRange] = useState("");
-  const [school, setSchool] = useState("");
-  const [team, setTeam] = useState("");
-  const [age, setAge] = useState("");
-  const [favorite, setFavorite] = useState(0);
+import { getOptionName, generateTitle } from "../../../utils/BoardUtils";
+
+const LeaderBoard = ({
+  getLeaderboardPlayers,
+  leaderboardPlayers,
+  updateFavoriteProfile,
+  isFetching,
+  dateOptions,
+  positionOptions,
+  favoriteOptions,
+  battingTypes,
+  pitcherTypes,
+}) => {
+  const [position, setPosition] = useState(null);
+  const [type, setType] = useState("exit_velocity");
+  const [date, setDate] = useState(null);
+  const [school, setSchool] = useState(null);
+  const [team, setTeam] = useState(null);
+  const [age, setAge] = useState(null);
+  const [favorite, setFavorite] = useState(null);
   const [tab, setTab] = useState("batting");
-  let testArr = [
-    {
-      age: 19,
-      batter_datraks_id: 412,
-      batter_name: "Alex Horne",
-      distance: 68.073,
-      exit_velocity: 89.855,
-      favorite: false,
-      launch_angle: null,
-      school: { id: "2", name: "FSU" },
-      teams: [{ id: "6", name: "Scorps" }],
-    },
-    {
-      age: 19,
-      batter_datraks_id: 412,
-      batter_name: "Alex Horne",
-      distance: 68.073,
-      exit_velocity: 89.855,
-      favorite: false,
-      launch_angle: null,
-      school: { id: "2", name: "FSU" },
-      teams: [{ id: "6", name: "Scorps" }],
-    },
-    {
-      age: 19,
-      batter_datraks_id: 412,
-      batter_name: "Alex Horne",
-      distance: 68.073,
-      exit_velocity: 89.855,
-      favorite: true,
-      launch_angle: null,
-      school: { id: "2", name: "FSU" },
-      teams: [{ id: "6", name: "Scorps" }],
-    },
-  ];
-  const dateOptions = [
-    { id: "", title: "All" },
-    { id: "last_week", title: "Last Week" },
-    { id: "last_month", title: "Last Month" },
-  ];
 
-  const positionOptions = [
-    { id: "", title: "All" },
-    { id: "catcher", title: "Catcher" },
-    { id: "first_base", title: "Firs Base" },
-    { id: "second_base", title: "Second Base" },
-    { id: "third_base", title: "Third Base" },
-    { id: "outfield", title: "Outfield" },
-    { id: "pitcher", title: "Pitcher" },
-  ];
-
-  const favoriteOptions = [
-    { id: "", title: "All" },
-    { id: 1, title: "Favorite" },
-  ];
-
-  const battingTypes = [
-    { id: "exit_velocity", title: "Exit Velocity" },
-    { id: "carry_distance", title: "Carry Distance" },
-  ];
-
-  const pitcherTypes = [
-    { id: "pitch_velocity", title: "Pitch Velocity" },
-    { id: "spin_rate", title: "Spin Rate" },
-  ];
-
-  const generateTitle = (id, options, defaultTitle) => {
-    let title = defaultTitle;
-    options.find((opt) => {
-      if (id !== "" && id === opt.id) {
-        title = opt.title;
-      }
+  useEffect(() => {
+    getLeaderboardPlayers({
+      type,
+      position,
+      school,
+      date,
+      team,
+      age,
+      favorite,
+      tab,
     });
-    return title;
-  };
+  }, [
+    type,
+    position,
+    school,
+    date,
+    team,
+    age,
+    favorite,
+    tab,
+    getLeaderboardPlayers,
+  ]);
 
   const renderBattingUsers = (users) => {
-    return users.map((user, index) => {
-      return (
-        <>
-          <TableCountWrap>
-            <TableCount>{index + 1}</TableCount>
-            <TableCount>
-              <NameBtn>{user.batter_name}</NameBtn>
-            </TableCount>
-            <TableCount>{user.age}</TableCount>
-            <TableCount>{user.school.id}</TableCount>
-            <TableCount>{user.age}</TableCount>
-            <TableCount>{user.exit_velocity}</TableCount>
-            <TableCount>{user.launch_angle}</TableCount>
-            <TableCount>{user.distance}</TableCount>
-            <TableCount>{user.age}</TableCount>
-          </TableCountWrap>
-          <SpaceRow />
-        </>
-      );
-    });
+    if (users && users.length !== 0) {
+      return users.map((user, index) => {
+        return (
+          <tbody key={index}>
+            <TableCountWrap key={user.batter_datraks_id}>
+              <TableCount>{index + 1}</TableCount>
+              <TableCount>
+                <BoardUserLink
+                  to={`/profile/${
+                    user.batter_datraks_id
+                      ? user.batter_datraks_id
+                      : user.pitcher_datraks_id
+                  }`}
+                >
+                  {user.batter_name || user.pitcher_name}
+                </BoardUserLink>
+              </TableCount>
+              <TableCount>{user.age}</TableCount>
+              <TableCount>{user.school ? user.school.name : "-"}</TableCount>
+              <TableCount>
+                {getOptionName(user.teams).join(", ") || ""}
+              </TableCount>
+              <TableCount>{user.exit_velocity || user.pitch_type}</TableCount>
+              <TableCount>{user.launch_angle || user.velocity}</TableCount>
+              <TableCount>{user.distance || user.spin_rate}</TableCount>
+              <TableCount>
+                <HeartIconSmall
+                  className="blue-icon fa fa-heart-o"
+                  isActive={user.favorite}
+                  onClick={() =>
+                    updateFavoriteProfile({
+                      id: user.batter_datraks_id
+                        ? user.batter_datraks_id
+                        : user.pitcher_datraks_id,
+                      favorite: !user.favorite,
+                    })
+                  }
+                />
+              </TableCount>
+            </TableCountWrap>
+            <SpaceRow />
+          </tbody>
+        );
+      });
+    }
   };
 
   return (
-    <Container>
-      <Header>
-        <Title>Leaderboard</Title>
-        <Filters>
+    <BoardContainer>
+      <BoardHeader>
+        <BoardTitle>Leaderboard</BoardTitle>
+        <PlayersFilters>
           <DropDownBtn
             width="57px"
-            title={generateTitle(dateRange, dateOptions, "Date")}
+            title={generateTitle(date, dateOptions, "Date")}
             options={dateOptions}
-            getId={setDateRange}
+            getId={setDate}
           />
           <SearchInput placeholder="School" getValue={setSchool} />
           <SearchInput placeholder="Team" getValue={setTeam} />
           <DropDownBtn
-            title={generateTitle(positionId, positionOptions, "Position")}
+            title={generateTitle(position, positionOptions, "Position")}
             options={positionOptions}
-            getId={setPositionId}
+            getId={setPosition}
           />
           <SearchInput width="47px" placeholder="Age" getValue={setAge} />
           <DropDownBtn
@@ -155,19 +145,25 @@ const LeaderBoard = () => {
             options={favoriteOptions}
             getId={setFavorite}
           />
-        </Filters>
-      </Header>
+        </PlayersFilters>
+      </BoardHeader>
       <Tabs>
         <span>
           <TabBtn
             isActive={tab === "batting" ? true : false}
-            onClick={() => setTab("batting")}
+            onClick={() => {
+              setType("exit_velocity");
+              setTab("batting");
+            }}
           >
             Batting
           </TabBtn>
           <TabBtn
             isActive={tab === "pitching" ? true : false}
-            onClick={() => setTab("pitching")}
+            onClick={() => {
+              setTab("pitching");
+              setType("pitch_velocity");
+            }}
           >
             Pitching
           </TabBtn>
@@ -175,65 +171,84 @@ const LeaderBoard = () => {
         <span>
           {tab === "batting" && (
             <DropDownBtn
-              title={generateTitle(battingType, battingTypes, "Exit Velocity")}
+              title={generateTitle(type, battingTypes, "Exit Velocity")}
               options={battingTypes}
-              getId={setBattingType}
+              getId={setType}
             />
           )}
           {tab === "pitching" && (
             <DropDownBtn
-              title={generateTitle(pitchingType, pitcherTypes, "Exit Velocity")}
+              title={generateTitle(type, pitcherTypes, "Pitch Velocity")}
               options={pitcherTypes}
-              getId={setPitchingType}
+              getId={setType}
             />
           )}
         </span>
       </Tabs>
-      <UsersContainer>
-        {tab === "batting" && (
-          <TableWrap>
-            <tbody>
-              <TableHeader>
-                <TableHeaderItem>Rank</TableHeaderItem>
-                <TableHeaderItem>Batter Name</TableHeaderItem>
-                <TableHeaderItem>Age</TableHeaderItem>
-                <TableHeaderItem>School</TableHeaderItem>
-                <TableHeaderItem>Teams</TableHeaderItem>
-                <TableHeaderItem>Exit Velocity</TableHeaderItem>
-                <TableHeaderItem>Launch Angle</TableHeaderItem>
-                <TableHeaderItem>Distance</TableHeaderItem>
-                <TableHeaderItem>Favorite</TableHeaderItem>
-              </TableHeader>
-            </tbody>
-            <tbody>{renderBattingUsers(testArr)}</tbody>
-          </TableWrap>
-        )}
-        {tab === "pitching" && (
-          <TableWrap>
-            <tbody>
-              <TableHeader>
-                <TableHeaderItem>Rank</TableHeaderItem>
-                <TableHeaderItem>Pitcher Name</TableHeaderItem>
-                <TableHeaderItem>Age</TableHeaderItem>
-                <TableHeaderItem>School</TableHeaderItem>
-                <TableHeaderItem>Teams</TableHeaderItem>
-                <TableHeaderItem>Pitch Type</TableHeaderItem>
-                <TableHeaderItem>Velocity</TableHeaderItem>
-                <TableHeaderItem>Spin Rate</TableHeaderItem>
-                <TableHeaderItem>Favorite</TableHeaderItem>
-              </TableHeader>
-            </tbody>
-          </TableWrap>
-        )}
-      </UsersContainer>
-    </Container>
+
+      {isFetching ? (
+        <Preloader />
+      ) : (
+        <UsersContainer>
+          {tab === "batting" ? (
+            <TableWrap>
+              <tbody>
+                <TableHeader>
+                  <TableHeaderItem>Rank</TableHeaderItem>
+                  <TableHeaderItem>Batter Name</TableHeaderItem>
+                  <TableHeaderItem>Age</TableHeaderItem>
+                  <TableHeaderItem>School</TableHeaderItem>
+                  <TableHeaderItem>Teams</TableHeaderItem>
+                  <TableHeaderItem>Exit Velocity</TableHeaderItem>
+                  <TableHeaderItem>Launch Angle</TableHeaderItem>
+                  <TableHeaderItem>Distance</TableHeaderItem>
+                  <TableHeaderItem>Favorite</TableHeaderItem>
+                </TableHeader>
+              </tbody>
+              {renderBattingUsers(leaderboardPlayers)}
+            </TableWrap>
+          ) : (
+            <TableWrap>
+              <tbody>
+                <TableHeader>
+                  <TableHeaderItem>Rank</TableHeaderItem>
+                  <TableHeaderItem>Pitcher Name</TableHeaderItem>
+                  <TableHeaderItem>Age</TableHeaderItem>
+                  <TableHeaderItem>School</TableHeaderItem>
+                  <TableHeaderItem>Teams</TableHeaderItem>
+                  <TableHeaderItem>Pitch Type</TableHeaderItem>
+                  <TableHeaderItem>Velocity</TableHeaderItem>
+                  <TableHeaderItem>Spin Rate</TableHeaderItem>
+                  <TableHeaderItem>Favorite</TableHeaderItem>
+                </TableHeader>
+              </tbody>
+              {renderBattingUsers(leaderboardPlayers)}
+            </TableWrap>
+          )}
+        </UsersContainer>
+      )}
+    </BoardContainer>
   );
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    leaderboardPlayers: getPlayersState(state),
+    isFetching: getIsFetchingState(state),
+    dateOptions: state.playersData.dateOptions,
+    positionOptions: state.playersData.positionOptions,
+    favoriteOptions: state.playersData.favoriteOptions,
+    battingTypes: state.playersData.battingTypes,
+    pitcherTypes: state.playersData.pitcherTypes,
+  };
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  getLeaderboardPlayers,
+  updateFavoriteProfile,
+};
 
-export default connect(mapStateToProps)(LeaderBoard);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(LeaderBoard));

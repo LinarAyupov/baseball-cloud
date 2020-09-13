@@ -3,7 +3,7 @@ import { Form, Field } from "react-final-form";
 import FormValidators from "../../../utils/FormValidators";
 import AuthContainer from "../../commons/AuthContainer";
 import AuthFormHeader from "../../commons/AuthFormHeader";
-import AuthFieldInput from "../../ui/AuthFieldInput";
+import TextInput from "../../ui/TextInput";
 import { InputsWrapper } from "./styled";
 import SubmitButton from "../../ui/SubmitButton";
 import AuthFormFooter from "../../commons/AuthFormFooter/AuthFormFooter";
@@ -28,9 +28,10 @@ const Forgotten = () => {
               autoComplete="address-line1"
               placeholder="Email"
               validate={FormValidators.fieldRequired}
-              render={AuthFieldInput}
+              render={TextInput}
               icon="user"
               isShowError={true}
+              formType="auth"
             />
             <SubmitButton type="submit">Submit</SubmitButton>
             <AuthFormFooter

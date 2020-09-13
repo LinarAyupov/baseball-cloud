@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { InputSelect, SelectWrap, Label, ErrorMassage } from "./styled";
 
-const FormSelect = ({
+const Select = ({
   input,
   placeholder,
   selectType = "",
@@ -36,4 +36,4 @@ const FormSelect = ({
   );
 };
 
-export default React.memo(FormSelect);
+export default React.memo(Select);

@@ -23,8 +23,12 @@ const Paginator = ({ totalCount, setOffset, count }) => {
       pagesRange.push(i);
     }
 
-    return pagesRange.map((num) => (
-      <NavBtn isActive={num === activePage ? true : false} onClick={choosePage}>
+    return pagesRange.map((num, index) => (
+      <NavBtn
+        key={index}
+        isActive={num === activePage ? true : false}
+        onClick={choosePage}
+      >
         {num}
       </NavBtn>
     ));

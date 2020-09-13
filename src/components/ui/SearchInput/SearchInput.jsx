@@ -12,6 +12,7 @@ const SearchInput = ({
   getId,
   placeholder,
   border = false,
+  type = "text",
 }) => {
   const [dropdownActive, setDropdownActive] = useState(false);
   const renderOptions = ({ options }) => {
@@ -24,6 +25,7 @@ const SearchInput = ({
   return (
     <InputWrap>
       <Input
+        type={type}
         rotatable={rotatable}
         iconType={iconType}
         placeholder={placeholder}

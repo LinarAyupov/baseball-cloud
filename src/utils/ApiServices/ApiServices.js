@@ -4,7 +4,7 @@ import StorageServices from "../StorageServices";
 import {
   GET_PROFILE_CURRENTS,
   GET_SCHOOLS,
-  GET_NOTIFICATIONS,
+  UPDATE_FAVORITE_PROFILE,
   GET_LEADERBOARD_BATTING,
   GET_TEAMS,
   GET_FACILITIES,
@@ -14,6 +14,9 @@ import {
   GET_BATTING_LOG,
   FILTER_PROFILE_NAMES,
   GET_COMPARISON_PLAYER,
+  GET_PROFILE_FULLDATA,
+  GET_LEADERBOARD_PITCHING,
+  GET_PROFILES,
 } from "../queries";
 
 class ApiServices {
@@ -58,6 +61,7 @@ class ApiServices {
       throw err;
     }
   };
+
   getProfileCurrents = async () => {
     try {
       const request = await this.axiosInstance();
@@ -69,6 +73,20 @@ class ApiServices {
       throw err;
     }
   };
+
+  getPlayerProfile = async ({ id }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_PROFILE_FULLDATA),
+        variables: { id },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   getSchoolList = async ({ searchText }) => {
     try {
       const request = await this.axiosInstance();
@@ -226,6 +244,7 @@ class ApiServices {
       throw err;
     }
   };
+
   getComparisonPlayer = async ({ id }) => {
     try {
       const request = await this.axiosInstance();
@@ -233,6 +252,119 @@ class ApiServices {
         query: print(GET_COMPARISON_PLAYER),
         variables: {
           id,
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  getLeaderboardBatting = async ({
+    type,
+    date,
+    position,
+    school,
+    age,
+    favorite,
+    team,
+  }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_LEADERBOARD_BATTING),
+        variables: {
+          input: {
+            type,
+            date,
+            position,
+            school,
+            age,
+            favorite,
+            team,
+          },
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  getLeaderboardPitching = async ({
+    type,
+    date,
+    position,
+    school,
+    age,
+    favorite,
+    team,
+  }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_LEADERBOARD_PITCHING),
+        variables: {
+          input: {
+            type,
+            date,
+            position,
+            school,
+            age,
+            favorite,
+            team,
+          },
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  updateFavoriteProfile = async ({ id, favorite }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(UPDATE_FAVORITE_PROFILE),
+        variables: {
+          form: {
+            profile_id: id,
+            favorite,
+          },
+        },
+      });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  getPlayersProfiles = async ({
+    profiles_count,
+    offset,
+    school,
+    position,
+    team,
+    age,
+    favorite,
+    player_name,
+  }) => {
+    try {
+      const request = await this.axiosInstance();
+      const response = await request.post("/graphql", {
+        query: print(GET_PROFILES),
+        variables: {
+          input: {
+            profiles_count,
+            offset,
+            school,
+            position,
+            team,
+            age,
+            favorite,
+            player_name,
+          },
         },
       });
       return response;

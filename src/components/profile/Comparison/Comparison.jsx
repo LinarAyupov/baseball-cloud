@@ -148,49 +148,53 @@ const Comparison = ({
         onChange={setTypeValues}
         right="0"
       />
-      <TableWrap>
-        <tbody>
-          <TableCountWrap>
-            <TableCount>Fastball</TableCount>
-            <TableCount>
-              {renderCount(profileTopValues, typeValues, "Fastball")}
-            </TableCount>
-            <TableCount>
-              {renderCount(comparisonTopValues, typeValues, "Fastball")}
-            </TableCount>{" "}
-          </TableCountWrap>
-          <SpaceRow />
-          <TableCountWrap>
-            <TableCount>Curveball</TableCount>
-            <TableCount>
-              {renderCount(profileTopValues, typeValues, "Curveball")}
-            </TableCount>
-            <TableCount>
-              {renderCount(comparisonTopValues, typeValues, "Curveball")}
-            </TableCount>
-          </TableCountWrap>
-          <SpaceRow />
-          <TableCountWrap>
-            <TableCount>Changeup</TableCount>
-            <TableCount>
-              {renderCount(profileTopValues, typeValues, "Changeup")}
-            </TableCount>
-            <TableCount>
-              {renderCount(comparisonTopValues, typeValues, "Changeup")}
-            </TableCount>
-          </TableCountWrap>
-          <SpaceRow />
-          <TableCountWrap>
-            <TableCount>Slider</TableCount>
-            <TableCount>
-              {renderCount(profileTopValues, typeValues, "Slider")}
-            </TableCount>
-            <TableCount>
-              {renderCount(comparisonTopValues, typeValues, "Slider")}
-            </TableCount>
-          </TableCountWrap>
-        </tbody>
-      </TableWrap>
+      {isFetching ? (
+        <Preloader />
+      ) : (
+        <TableWrap>
+          <tbody>
+            <TableCountWrap>
+              <TableCount>Fastball</TableCount>
+              <TableCount>
+                {renderCount(profileTopValues, typeValues, "Fastball")}
+              </TableCount>
+              <TableCount>
+                {renderCount(comparisonTopValues, typeValues, "Fastball")}
+              </TableCount>{" "}
+            </TableCountWrap>
+            <SpaceRow />
+            <TableCountWrap>
+              <TableCount>Curveball</TableCount>
+              <TableCount>
+                {renderCount(profileTopValues, typeValues, "Curveball")}
+              </TableCount>
+              <TableCount>
+                {renderCount(comparisonTopValues, typeValues, "Curveball")}
+              </TableCount>
+            </TableCountWrap>
+            <SpaceRow />
+            <TableCountWrap>
+              <TableCount>Changeup</TableCount>
+              <TableCount>
+                {renderCount(profileTopValues, typeValues, "Changeup")}
+              </TableCount>
+              <TableCount>
+                {renderCount(comparisonTopValues, typeValues, "Changeup")}
+              </TableCount>
+            </TableCountWrap>
+            <SpaceRow />
+            <TableCountWrap>
+              <TableCount>Slider</TableCount>
+              <TableCount>
+                {renderCount(profileTopValues, typeValues, "Slider")}
+              </TableCount>
+              <TableCount>
+                {renderCount(comparisonTopValues, typeValues, "Slider")}
+              </TableCount>
+            </TableCountWrap>
+          </tbody>
+        </TableWrap>
+      )}
     </Container>
   );
 };

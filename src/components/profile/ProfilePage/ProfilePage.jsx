@@ -6,6 +6,8 @@ import Footer from "../../../layout/Footer";
 import PlayerProfile from "../PlayerProfile";
 import LeaderBoard from "../LeaderBoard";
 import { connect } from "react-redux";
+import Network from "../Network/Network";
+import { logOut } from "../../../actions/authActions";
 
 const ProfilePage = ({
   isAuth,
@@ -13,6 +15,7 @@ const ProfilePage = ({
   avatarUrl,
   userName,
   userLastName,
+  logOut,
 }) => {
   useEffect(() => {
     if (isAuth) {
@@ -26,9 +29,11 @@ const ProfilePage = ({
         avatarUrl={avatarUrl}
         userName={userName}
         userLastName={userLastName}
+        logOut={logOut}
       />
-      <Route path="/profile/:userId?" render={() => <PlayerProfile />} />
-      <Route path="/leaderboard" render={() => <LeaderBoard />} />
+      <Route exact path="/profile/:userId?" render={() => <PlayerProfile />} />
+      <Route exact path="/leaderboard" render={() => <LeaderBoard />} />
+      <Route exact path="/network" render={() => <Network />} />
       <Footer />
     </MainContainer>
   );
@@ -40,4 +45,4 @@ const mapStateToProps = (state) => {
     userLastName: state.profileData.profileCurrents.last_name,
   };
 };
-export default connect(mapStateToProps)(withRouter(ProfilePage));
+export default connect(mapStateToProps, { logOut })(withRouter(ProfilePage));

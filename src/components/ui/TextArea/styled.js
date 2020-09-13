@@ -5,7 +5,7 @@ export const TextAreaWrap = styled.div`
   width: 100%;
 `;
 
-export const TextArea = styled.textarea`
+export const TextAreaInput = styled.textarea`
   transition: all 0.2s;
   touch-action: manipulation;
   display: block;

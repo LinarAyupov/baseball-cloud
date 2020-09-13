@@ -9,10 +9,10 @@ import {
   CancelBtn,
   SaveBtn,
 } from "./styled";
-import FormTextInput from "../../ui/FormTextInput";
-import FormSelect from "../../ui/FormSelect/FormSelect";
+import TextInput from "../../ui/TextInput";
+import Select from "../../ui/Select";
 import SidebarSubtitle from "../../ui/SidebarSubtitle";
-import FormTextArea from "../../ui/FormTextArea";
+import TextArea from "../../ui/TextArea";
 import AvatarForm from "../../ui/AvatarForm";
 
 const EditSidebar = ({
@@ -99,7 +99,8 @@ const EditSidebar = ({
                 initialValue={profileCurrents.first_name}
                 placeholder="First name*"
                 typeEdit="short"
-                component={FormTextInput}
+                component={TextInput}
+                formType="editProfile"
               />
               <Field
                 name="last_name"
@@ -107,7 +108,8 @@ const EditSidebar = ({
                 initialValue={profileCurrents.last_name}
                 placeholder="Last Name *"
                 typeEdit="short"
-                component={FormTextInput}
+                component={TextInput}
+                formType="editProfile"
               />
             </ShortInputsWrap>
             <Field
@@ -117,7 +119,7 @@ const EditSidebar = ({
                 profileCurrents.position
               )}
               placeholder="Position in Game *"
-              component={FormSelect}
+              component={Select}
               options={firstPositions}
             />
             <Field
@@ -127,7 +129,7 @@ const EditSidebar = ({
                 secondPositions,
                 profileCurrents.position2
               )}
-              component={FormSelect}
+              component={Select}
               options={secondPositions}
             />
 
@@ -138,7 +140,8 @@ const EditSidebar = ({
               type="number"
               placeholder="Age *"
               initialValue={profileCurrents.age}
-              component={FormTextInput}
+              component={TextInput}
+              formType="editProfile"
             />
             <ShortInputsWrap>
               <Field
@@ -146,16 +149,18 @@ const EditSidebar = ({
                 type="number"
                 initialValue={profileCurrents.feet}
                 placeholder="Feet *"
-                component={FormTextInput}
+                component={TextInput}
                 validate={FormValidators.heightValidate}
                 typeEdit="short"
+                formType="editProfile"
               />
               <Field
                 name="inches"
                 type="number"
                 initialValue={profileCurrents.inches}
                 placeholder="Inches"
-                component={FormTextInput}
+                component={TextInput}
+                formType="editProfile"
                 typeEdit="short"
               />
             </ShortInputsWrap>
@@ -164,7 +169,8 @@ const EditSidebar = ({
               type="number"
               initialValue={profileCurrents.weight}
               placeholder="Weight *"
-              component={FormTextInput}
+              component={TextInput}
+              formType="editProfile"
             />
             <ShortInputsWrap>
               <Field
@@ -174,7 +180,7 @@ const EditSidebar = ({
                   handsSides,
                   profileCurrents.throws_hand
                 )}
-                component={FormSelect}
+                component={Select}
                 selectType="short"
                 options={handsSides}
               />
@@ -185,7 +191,7 @@ const EditSidebar = ({
                   handsSides,
                   profileCurrents.bats_hand
                 )}
-                component={FormSelect}
+                component={Select}
                 selectType="short"
                 options={handsSides}
               />
@@ -195,7 +201,7 @@ const EditSidebar = ({
               name="school"
               placeholder="School"
               initialValue={profileCurrents.school}
-              component={FormSelect}
+              component={Select}
               options={schools}
             />
             <Field
@@ -205,13 +211,13 @@ const EditSidebar = ({
               )}
               name="school_year"
               placeholder="Shool Year"
-              component={FormSelect}
+              component={Select}
               options={schoolYears}
             />
             <Field
               name="teams"
               placeholder="Team"
-              component={FormSelect}
+              component={Select}
               initialValue={profileCurrents.teams}
               options={teams}
               multiple={true}
@@ -223,7 +229,7 @@ const EditSidebar = ({
               initialValue={profileFacilities}
               placeholder="Facility "
               options={facilities}
-              component={FormSelect}
+              component={Select}
               isMulti={true}
               facilities={true}
             />
@@ -232,7 +238,7 @@ const EditSidebar = ({
               name="biography"
               initialValue={profileCurrents.biography}
               placeholder="Describe yourself in a few words"
-              component={FormTextArea}
+              component={TextArea}
             />
             <ButtonsWrap>
               <CancelBtn disabled={isFetching} onClick={() => setIsEdit(false)}>
@@ -241,7 +247,7 @@ const EditSidebar = ({
               <SaveBtn type="submit" disabled={isFetching}>
                 {isFetching ? (
                   <i
-                    class="fa fa-spinner fa-spin"
+                    className="fa fa-spinner fa-spin"
                     style={{ fontSize: "19px" }}
                   ></i>
                 ) : (

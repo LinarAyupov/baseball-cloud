@@ -22,6 +22,7 @@ import {
 const SidebarContainer = ({
   getSchools,
   getTeams,
+  updateFavoriteProfile,
   getFacilities,
   profileCurrents,
   firstPositions,
@@ -34,6 +35,7 @@ const SidebarContainer = ({
   uploadPhoto,
   schools,
   teams,
+  showLikeBtn,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   useEffect(() => {
@@ -87,6 +89,8 @@ const SidebarContainer = ({
           handsSides={handsSides}
           profileFacilities={profileFacilities}
           setIsEdit={setIsEdit}
+          showLikeBtn={showLikeBtn}
+          updateFavoriteProfile={updateFavoriteProfile}
         />
       )}
     </>

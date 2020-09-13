@@ -3,10 +3,6 @@ import {
   FETCH_SCHOOLS,
   FETCH_TEAMS,
   FETCH_FACILITIES,
-  FETCH_LEADERBOARD_BATTING,
-  FETCH_NOTIFICATIONS,
-  FETCH_EVENTS,
-  FETCH_BATTING_SUMMARY,
 } from "../reducers/profileReducer";
 import { toggleIsFetching } from "./authActions";
 import ApiServices from "../utils/ApiServices";
@@ -38,27 +34,6 @@ const fetchFacilities = ({ facilities }) => {
   };
 };
 
-const fetchLeaderboardBatting = ({ liderboardbatting }) => {
-  return {
-    type: FETCH_LEADERBOARD_BATTING,
-    payload: { liderboardbatting },
-  };
-};
-
-const fetchNotifications = ({ notifications }) => {
-  return {
-    type: FETCH_NOTIFICATIONS,
-    payload: { notifications },
-  };
-};
-
-const fetchEvents = ({ events }) => {
-  return {
-    type: FETCH_EVENTS,
-    payload: { events },
-  };
-};
-
 //----------------Thunks------------------------------
 
 export const getProfileCurrents = () => {
@@ -72,6 +47,15 @@ export const getProfileCurrents = () => {
     }
   };
 };
+
+export const getPlayerProfile = ({ id }) => {
+  return async (dispatch) => {
+    const { data } = await ApiServices.getPlayerProfile({ id });
+    const profileCurrent = data.data.profile;
+    dispatch(fetchProfileCurrents({ profileCurrent }));
+  };
+};
+
 export const getSchools = ({ searchText }) => {
   return async (dispatch) => {
     try {

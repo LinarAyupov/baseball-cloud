@@ -37,7 +37,8 @@ export const getProfileEventsState = (state) => state.eventsData.events;
 export const getEventsTotalCountState = (state) => state.eventsData.totalCount;
 
 export const getFilteredPlayersState = (state) =>
-  state.comparisonDate.filteredPlayers;
+  state.comparisonData.filteredPlayers;
 
 export const getComparisonPlayerState = (state) =>
-  state.comparisonDate.choosedProfile;
+  state.comparisonData.choosedProfile;
+export const getPlayersState = (state) => state.playersData.players;

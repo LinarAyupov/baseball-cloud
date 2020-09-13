@@ -45,8 +45,8 @@ const Log = ({ userId, getBattingLog, battingLog, totalCount }) => {
 
   const renderLogs = ({ battingLog }) => {
     if (battingLog && battingLog.length !== 0) {
-      return battingLog.map((log) => (
-        <>
+      return battingLog.map((log, index) => (
+        <tbody key={index}>
           <TableCountWrap>
             <TableCount>{log.date ? log.date : "-"}</TableCount>
             <TableCount>{log.pitcher_name ? log.pitcher_name : "-"}</TableCount>
@@ -57,7 +57,7 @@ const Log = ({ userId, getBattingLog, battingLog, totalCount }) => {
             <TableCount>{log.pitch_call ? log.pitch_call : "-"}</TableCount>
           </TableCountWrap>
           <SpaceRow />
-        </>
+        </tbody>
       ));
     }
   };
@@ -89,8 +89,8 @@ const Log = ({ userId, getBattingLog, battingLog, totalCount }) => {
             <TableHeaderItem>Pitch Type</TableHeaderItem>
             <TableHeaderItem>Pitch Call</TableHeaderItem>
           </TableHeader>
-          {renderLogs({ battingLog })}
         </tbody>
+        {renderLogs({ battingLog })}
       </TableWrap>
       {totalCount > count ? (
         <Paginator
@@ -99,6 +99,7 @@ const Log = ({ userId, getBattingLog, battingLog, totalCount }) => {
           count={count}
         />
       ) : null}
+      {battingLog.length === 0 ? <NowInfo>There's no info yet!</NowInfo> : null}
     </>
   );
 };

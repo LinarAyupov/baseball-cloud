@@ -9,7 +9,6 @@ export const InputWrap = styled.div`
 export const IconWrap = styled.div`
   display: flex;
   padding: 14px 0;
-  margin-left: -13px;
   cursor: pointer;
   transform: rotate(0);
   transition: transform 0.5s;
@@ -44,6 +43,18 @@ export const Input = styled.input`
         }
       }};
     }
+  }
+  &[type="number"]::-webkit-outer-spin-button,
+  &[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+  &[type="number"]:hover,
+  &[type="number"]:focus {
+    -moz-appearance: number-input;
   }
 `;
 export const DropDownItem = styled.div`

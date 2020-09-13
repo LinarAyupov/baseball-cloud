@@ -9,7 +9,7 @@ import {
   SpaceRow,
   NowInfo,
 } from "../../../commonStyles/styled";
-import DateButton from "../../commons/DateButton";
+import DateButton from "../../ui/DateButton";
 import DropDownBtn from "../../ui/DropDownBtn";
 import { connect } from "react-redux";
 import { getProfileEvents } from "../../../actions/eventsActions";
@@ -35,8 +35,8 @@ const SessionReports = ({ events, totalCount, userId, getProfileEvents }) => {
   };
 
   const renderEvents = ({ events }) => {
-    return events.map((e) => (
-      <>
+    return events.map((e, index) => (
+      <tbody key={index}>
         <TableCountWrap>
           <TableCount>{e.date}</TableCount>
           <TableCount>{e.event_type}</TableCount>
@@ -44,7 +44,7 @@ const SessionReports = ({ events, totalCount, userId, getProfileEvents }) => {
           <TableCount>{e.purchased ? e.purchased : ""}</TableCount>
         </TableCountWrap>
         <SpaceRow></SpaceRow>
-      </>
+      </tbody>
     ));
   };
 
@@ -71,8 +71,9 @@ const SessionReports = ({ events, totalCount, userId, getProfileEvents }) => {
             <TableHeaderItem>Name</TableHeaderItem>
             <TableHeaderItem>Purchased</TableHeaderItem>
           </TableHeader>
-          {events ? renderEvents({ events }) : ""}
         </tbody>
+
+        {events ? renderEvents({ events }) : ""}
       </TableWrap>
 
       {totalCount > count ? (

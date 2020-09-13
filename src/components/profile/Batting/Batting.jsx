@@ -19,7 +19,7 @@ import {
 const Batting = ({ topValues, averageValues, getBattingSummary, userId }) => {
   useEffect(() => {
     if (userId) {
-      getBattingSummary({ userId: 415 });
+      getBattingSummary({ userId });
     }
   }, [getBattingSummary, userId]);
 

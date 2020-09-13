@@ -21,6 +21,7 @@ import ThrowsIconSvg from "../../SvgComponents/ThrowsIconSvg";
 import BatsIconSvg from "../../SvgComponents/BatsIconSvg";
 import SidebarSubtitle from "../../ui/SidebarSubtitle";
 import EditIconSvg from "../../SvgComponents/EditIconSvg";
+import LikeIconSvg from "../../SvgComponents/LikeIconSvg";
 
 const InfoSidebar = ({
   profileCurrents,
@@ -29,6 +30,8 @@ const InfoSidebar = ({
   handsSides,
   schoolYears,
   setIsEdit,
+  showLikeBtn,
+  updateFavoriteProfile,
 }) => {
   const {
     avatar,
@@ -51,6 +54,16 @@ const InfoSidebar = ({
 
   const editInfo = () => {
     setIsEdit(true);
+  };
+
+  const likeProfile = () => {
+    updateFavoriteProfile({
+      id:
+        profileCurrents.batter_datraks_id ||
+        profileCurrents.pitcher_datraks_id ||
+        profileCurrents.id,
+      favorite: !profileCurrents.favorite,
+    });
   };
 
   const getOptionName = (optionList, value) => {
@@ -76,9 +89,17 @@ const InfoSidebar = ({
   return (
     <SidebarContainer style={{ lineHeight: "19px" }}>
       <HeaderWrap>
-        <EditButton onClick={editInfo}>
-          <EditIconSvg />
-        </EditButton>
+        {showLikeBtn ? (
+          <EditButton onClick={likeProfile}>
+            <LikeIconSvg
+              fill={profileCurrents.favorite ? "#48BBFF" : "#99acba"}
+            />
+          </EditButton>
+        ) : (
+          <EditButton onClick={editInfo}>
+            <EditIconSvg />
+          </EditButton>
+        )}
         <AvatarWrap avatarUrl={avatar} />
         <Name>
           {first_name} {last_name}

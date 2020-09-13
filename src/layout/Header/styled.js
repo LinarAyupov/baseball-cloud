@@ -21,10 +21,24 @@ export const LogoLink = styled(Link)`
   font-size: 0;
 `;
 
+export const DropdownItem = styled.span`
+  width: 100%;
+  padding: 8px 16px;
+  color: #788b99;
+  text-align: left;
+  line-height: 1;
+  &:hover {
+    background-color: #ecf8ff;
+  }
+`;
+
 export const HeaderNav = styled.nav`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  @media (max-width: 40em) {
+    justify-content: center;
+  }
 `;
 
 export const Border = styled.span`

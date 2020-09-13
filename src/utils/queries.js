@@ -339,3 +339,69 @@ export const GET_COMPARISON_PLAYER = gql`
     }
   }
 `;
+
+export const UPDATE_FAVORITE_PROFILE = gql`
+  mutation UpdateFavoriteProfile($form: UpdateFavoriteProfileInput!) {
+    update_favorite_profile(input: $form) {
+      favorite
+    }
+  }
+`;
+
+export const GET_LEADERBOARD_PITCHING = gql`
+  query LeaderboardPitching($input: FilterLeaderboardInput!) {
+    leaderboard_pitching(input: $input) {
+      leaderboard_pitching {
+        pitcher_name
+        pitch_type
+        velocity
+        spin_rate
+        vertical_break
+        horizontal_break
+        pitcher_datraks_id
+        age
+        school {
+          id
+          name
+        }
+        teams {
+          id
+          name
+        }
+        favorite
+      }
+    }
+  }
+`;
+
+export const GET_PROFILES = gql`
+  query Profiles($input: FilterProfilesInput!) {
+    profiles(input: $input) {
+      profiles {
+        id
+        first_name
+        last_name
+        position
+        position2
+        school_year
+        feet
+        inches
+        weight
+        age
+        events {
+          id
+        }
+        school {
+          id
+          name
+        }
+        teams {
+          id
+          name
+        }
+        favorite
+      }
+      total_count
+    }
+  }
+`;

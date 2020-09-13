@@ -6,12 +6,30 @@ import TopBatting from "../TopBatting";
 import RecentReports from "../RecentReports";
 import Statistics from "../Statistics";
 import { connect } from "react-redux";
-import { getProfileCurrents } from "../../../actions/profileActions";
-import { getProfileState } from "../../../selectors/selectors";
-const PlayerProfile = ({ getProfileCurrents, profileCurrents }) => {
+import {
+  getProfileCurrents,
+  getPlayerProfile,
+} from "../../../actions/profileActions";
+import { updateFavoriteProfile } from "../../../actions/playersActions";
+import { getProfileState, getPlayersState } from "../../../selectors/selectors";
+import { withRouter } from "react-router-dom";
+const PlayerProfile = ({
+  getProfileCurrents,
+  profileCurrents,
+  getPlayerProfile,
+  updateFavoriteProfile,
+  match,
+  players,
+}) => {
+  const { userId } = match.params;
   useEffect(() => {
-    getProfileCurrents();
-  }, [getProfileCurrents]);
+    if (userId) {
+      getPlayerProfile({ id: userId });
+    }
+    if (!userId) {
+      getProfileCurrents();
+    }
+  }, [getProfileCurrents, getPlayerProfile, userId, match, players]);
   const {
     id,
     first_name,
@@ -27,7 +45,11 @@ const PlayerProfile = ({ getProfileCurrents, profileCurrents }) => {
   } = profileCurrents;
   return (
     <ProfileContainer>
-      <SidebarContainer profileCurrents={profileCurrents} />
+      <SidebarContainer
+        profileCurrents={profileCurrents}
+        showLikeBtn={userId ? true : false}
+        updateFavoriteProfile={updateFavoriteProfile}
+      />
       <ContentWrapper>
         <TopBatting userId={id} topValues={batter_summary} />
         <RecentReports />
@@ -53,11 +75,17 @@ const PlayerProfile = ({ getProfileCurrents, profileCurrents }) => {
 const mapStateToProps = (state) => {
   return {
     profileCurrents: getProfileState(state),
+    players: getPlayersState(state),
   };
 };
 
 const mapDispatchToProps = {
   getProfileCurrents,
+  getPlayerProfile,
+  updateFavoriteProfile,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerProfile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(PlayerProfile));

@@ -12,6 +12,15 @@ export const EditButton = styled.div`
   top: 12px;
   right: 13px;
   cursor: pointer;
+  ${({ isActive, favorite }) => {
+    if (isActive && favorite) {
+      return `
+        & > svg {
+          fill: #48BBFF;
+        }
+      `;
+    }
+  }}
 `;
 
 export const AvatarWrap = styled.div`

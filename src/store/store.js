@@ -6,13 +6,15 @@ import StorageServices from "../utils/StorageServices";
 import battingReducers from "../reducers/battingReducer";
 import eventsReducer from "../reducers/eventsReducer";
 import comparisonReducer from "../reducers/comparisonReducer";
+import playersReducer from "../reducers/playersReducer";
 
 const reducers = combineReducers({
   authData: authReducer,
   profileData: profileReducer,
   battingData: battingReducers,
   eventsData: eventsReducer,
-  comparisonDate: comparisonReducer,
+  comparisonData: comparisonReducer,
+  playersData: playersReducer,
 });
 
 const localState = StorageServices.loadState();

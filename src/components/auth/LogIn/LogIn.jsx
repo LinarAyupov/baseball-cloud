@@ -8,7 +8,7 @@ import { InputsWrapper, Forgotten } from "./styled";
 import AuthContainer from "../../commons/AuthContainer";
 import AuthFormHeader from "../../commons/AuthFormHeader";
 import FormValidators from "../../../utils/FormValidators";
-import AuthFieldInput from "../../ui/AuthFieldInput";
+import TextInput from "../../ui/TextInput";
 import SubmitButton from "../../ui/SubmitButton";
 import Link from "../../ui/Link";
 import AuthFormFooter from "../../commons/AuthFormFooter/AuthFormFooter";
@@ -31,9 +31,10 @@ const LogIn = ({ singIn, isFetching, unauthorized }) => {
               type="email"
               validate={FormValidators.loginFieldRequired}
               placeholder="Email"
-              render={AuthFieldInput}
+              render={TextInput}
               icon="user"
               autoComplete="address-line1"
+              formType="auth"
             />
             <Field
               name="password"
@@ -41,10 +42,11 @@ const LogIn = ({ singIn, isFetching, unauthorized }) => {
               autoComplete="current-password"
               validate={FormValidators.loginFieldRequired}
               placeholder="Password"
-              render={AuthFieldInput}
+              render={TextInput}
               icon="lock"
               unauthorized={unauthorized}
               isShowError={true}
+              formType="auth"
             />
             <SubmitButton type="submit" disabled={isFetching}>
               Sign In
