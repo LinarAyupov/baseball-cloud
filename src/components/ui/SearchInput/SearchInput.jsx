@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input, InputWrap, IconWrap, DropDownItem } from "./styled";
 import SearchIconSvg from "../../SvgComponents/SearchIconSvg";
 import BlueArrowSvg from "../../SvgComponents/BlueArrowSvg";
-import { DropdownList } from "../../../commonStyles/styled";
+import DropdownList from "../../commons/DropdownList";
 const SearchInput = ({
   iconType = "arrow",
   width,
@@ -14,7 +14,7 @@ const SearchInput = ({
   border = false,
   type = "text",
 }) => {
-  const [dropdownActive, setDropdownActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const renderOptions = ({ options }) => {
     return options.map((opt) => (
       <DropDownItem key={opt.id} id={opt.id} onClick={() => getId(opt.id)}>
@@ -32,14 +32,14 @@ const SearchInput = ({
         width={width}
         border={border}
         onChange={(e) => getValue(e.target.value)}
-        onFocus={() => setDropdownActive(true)}
-        onBlur={() => setTimeout(() => setDropdownActive(false), 300)}
+        onFocus={() => setIsOpen(true)}
+        onBlur={() => setTimeout(() => setIsOpen(false), 300)}
       />
       <IconWrap id="icon">
         {iconType === "search" ? <SearchIconSvg /> : <BlueArrowSvg />}
       </IconWrap>
       {options && options.length !== 0 ? (
-        <DropdownList dropdownActive={dropdownActive}>
+        <DropdownList isOpen={isOpen} setIsOpen={setIsOpen}>
           {renderOptions({ options })}
         </DropdownList>
       ) : null}

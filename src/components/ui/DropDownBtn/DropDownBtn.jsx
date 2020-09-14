@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Container, IconWrap, MenuList, DropDownItem } from "./styled";
+import { Container, IconWrap, DropDownItem } from "./styled";
 import BlueArrowSvg from "../../SvgComponents/BlueArrowSvg";
+import DropdownList from "../../commons/DropdownList";
 const DropDownBtn = ({
   menuWidth,
   options = [],
@@ -49,9 +50,13 @@ const DropDownBtn = ({
         <BlueArrowSvg />
       </IconWrap>
       {options.length !== 0 && (
-        <MenuList isOpen={isOpen} menuWidth={menuWidth} right={right}>
+        <DropdownList
+          isOpen={isOpen}
+          menuWidth={menuWidth}
+          setIsOpen={setIsOpen}
+        >
           {renderOptions({ options })}
-        </MenuList>
+        </DropdownList>
       )}
     </Container>
   );

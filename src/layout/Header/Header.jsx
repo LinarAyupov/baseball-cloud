@@ -12,7 +12,7 @@ import {
   DropdownLink,
   DropdownItem,
 } from "./styled";
-import { DropdownList } from "../../commonStyles/styled";
+import DropdownList from "../../components/commons/DropdownList";
 import LogoSvg from "../../components/SvgComponents/logoSvg";
 import DownIcon from "../../components/SvgComponents/DownIcon";
 import { withRouter } from "react-router-dom";
@@ -25,9 +25,9 @@ const Header = ({
   logOut,
   history,
 }) => {
-  const [dropdownActive, toggleDropdown] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const toggleDropdownPanel = () => {
-    toggleDropdown(!dropdownActive);
+    setIsOpen(!isOpen);
   };
 
   const onLogOut = () => {
@@ -61,7 +61,7 @@ const Header = ({
               <DownIconWrap>
                 <DownIcon />
               </DownIconWrap>
-              <DropdownList dropdownActive={dropdownActive}>
+              <DropdownList isOpen={isOpen} setIsOpen={setIsOpen}>
                 <DropdownLink to="/profile">My Profile</DropdownLink>
                 <DropdownItem style={{ width: "100%" }} onClick={onLogOut}>
                   Log Qut
