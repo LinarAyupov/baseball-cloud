@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { DropdownWrap } from "./styled";
-import { useOnClickOutside } from "../../customHoks/customHoks";
+import { useOnClickOutside } from "../../../customHoks/customHoks";
 
 const DropdownList = ({ children, menuWidth, isOpen, setIsOpen }) => {
   const ref = useRef();
