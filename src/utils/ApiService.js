@@ -1,6 +1,6 @@
 import axios from "axios";
 import { print } from "graphql";
-import StorageServices from "../StorageServices";
+import StorageService from "./StorageService";
 import {
   GET_PROFILE_CURRENTS,
   GET_SCHOOLS,
@@ -17,7 +17,7 @@ import {
   GET_PROFILE_FULLDATA,
   GET_LEADERBOARD_PITCHING,
   GET_PROFILES,
-} from "../queries";
+} from "./queries";
 
 class ApiServices {
   axiosInstance = async () => {
@@ -25,7 +25,7 @@ class ApiServices {
       accessToken,
       client,
       uid,
-    } = await StorageServices.getHeadersDataFromStorage();
+    } = await StorageService.getHeadersDataFromStorage();
     let headers = {};
     if (accessToken) {
       headers = {

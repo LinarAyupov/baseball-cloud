@@ -35,7 +35,7 @@ import DropDownBtn from "../../ui/DropDownBtn";
 import SearchIconSvg from "../../SvgComponents/SearchIconSvg";
 import Preloader from "../../ui/Preloader";
 import Paginator from "../../commons/Paginator";
-import { getOptionName, generateTitle } from "../../../utils/BoardUtils";
+import { getOptionName, generateTitle } from "../../../utils/boardHelper";
 
 const Network = ({
   players,

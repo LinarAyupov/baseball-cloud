@@ -1,5 +1,5 @@
 import { FETCH_EVENTS } from "../reducers/eventsReducer";
-import ApiServices from "../utils/ApiServices";
+import ApiService from "../utils/ApiService";
 import { toggleIsFetching } from "./authActions";
 const fetchEvents = ({ events, total_count }) => {
   return {
@@ -23,7 +23,7 @@ export const getProfileEvents = ({
   return async (dispatch) => {
     dispatch(toggleIsFetching(true));
     try {
-      const { data } = await ApiServices.getProfileEvents({
+      const { data } = await ApiService.getProfileEvents({
         userId,
         date,
         eventType,

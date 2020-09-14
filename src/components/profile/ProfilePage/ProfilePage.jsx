@@ -8,27 +8,23 @@ import LeaderBoard from "../LeaderBoard";
 import { connect } from "react-redux";
 import Network from "../Network/Network";
 import { logOut } from "../../../actions/authActions";
+import { getHeaderUserData } from "../../../selectors/selectors";
 
-const ProfilePage = ({
-  isAuth,
-  history,
-  avatarUrl,
-  userName,
-  userLastName,
-  logOut,
-}) => {
+const ProfilePage = ({ isAuth, history, logOut, headerUserData }) => {
   useEffect(() => {
     if (isAuth) {
       history.push("/profile");
     }
   }, [isAuth, history]);
+
+  const { avatar, first_name, last_name } = headerUserData;
   return (
     <MainContainer>
       <Header
         isAuth={isAuth}
-        avatarUrl={avatarUrl}
-        userName={userName}
-        userLastName={userLastName}
+        avatarUrl={avatar}
+        userName={first_name}
+        userLastName={last_name}
         logOut={logOut}
       />
       <Route exact path="/profile/:userId?" render={() => <PlayerProfile />} />
@@ -40,9 +36,7 @@ const ProfilePage = ({
 };
 const mapStateToProps = (state) => {
   return {
-    avatarUrl: state.profileData.profileCurrents.avatar,
-    userName: state.profileData.profileCurrents.first_name,
-    userLastName: state.profileData.profileCurrents.last_name,
+    headerUserData: getHeaderUserData(state),
   };
 };
 export default connect(mapStateToProps, { logOut })(withRouter(ProfilePage));

@@ -31,7 +31,6 @@ const Header = ({
   };
 
   const onLogOut = () => {
-    console.log(history);
     logOut();
     history.push("/login");
   };

@@ -3,7 +3,7 @@ import {
   FETCH_CHOOSED_PROFILE,
 } from "../reducers/comparisonReducer";
 import { toggleIsFetching } from "./authActions";
-import ApiServices from "../utils/ApiServices";
+import ApiService from "../utils/ApiService";
 
 const fetchFilteredPlayers = ({ profile_names }) => {
   return {
@@ -26,7 +26,7 @@ export const filterPlayersName = ({ playerName, position }) => {
     dispatch(toggleIsFetching(true));
 
     try {
-      const { data } = await ApiServices.filterProfileNames({
+      const { data } = await ApiService.filterProfileNames({
         playerName,
         position,
       });
@@ -43,7 +43,7 @@ export const getComparisonPlayer = ({ id }) => {
   return async (dispatch) => {
     dispatch(toggleIsFetching(true));
     try {
-      const { data } = await ApiServices.getComparisonPlayer({ id });
+      const { data } = await ApiService.getComparisonPlayer({ id });
       const { profile } = data.data;
       dispatch(fetchChoosedProfile({ profile }));
       dispatch(toggleIsFetching(false));

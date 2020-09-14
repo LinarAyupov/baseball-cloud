@@ -74,11 +74,17 @@ const InfoSidebar = ({
           name.push(opt.name);
         }
       });
-    } else if (!value && Array.isArray(optionList) === true) {
+    } else if (
+      value !== null &&
+      value !== "" &&
+      Array.isArray(optionList) === true
+    ) {
       optionList.filter((opt) =>
         opt.name ? name.push(opt.name) : name.push(opt.u_name)
       );
     } else if (!optionList) {
+      name = [""];
+    } else if (!value || value === "") {
       name = [""];
     } else {
       name = optionList.name;

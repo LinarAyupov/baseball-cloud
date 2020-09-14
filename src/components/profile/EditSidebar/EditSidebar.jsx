@@ -1,7 +1,7 @@
 import React from "react";
 import { SidebarContainer } from "../../../commonStyles/styled";
 import { Form, Field } from "react-final-form";
-import FormValidators from "../../../utils/FormValidators";
+import FormValidator from "../../../utils/FormValidator";
 import {
   FormWrap,
   ShortInputsWrap,
@@ -51,6 +51,7 @@ const EditSidebar = ({
       feet,
       inches,
       weight,
+      teams,
     } = value;
     const { id, avatar } = profileCurrents;
     const profileCounts = {
@@ -62,11 +63,12 @@ const EditSidebar = ({
       id,
       avatar,
       position: position.id,
-      position2: position2.id,
+      position2: position2 ? position2.id : profileCurrents.position2,
       bats_hand: bats_hand.id,
       throws_hand: throws_hand.id,
-      school: school || profileCurrents.school,
-      school_year: school_year.id || profileCurrents.school_year,
+      school: school ? school : profileCurrents.school,
+      school_year: school_year ? school_year.id : profileCurrents.school_year,
+      teams: teams ? teams : profileCurrents.teams,
       facilities: facilities
         ? value.facilities.map((f) => ({
             id: f.id,
@@ -84,7 +86,7 @@ const EditSidebar = ({
       <AvatarForm avatar={profileCurrents.avatar} uploadPhoto={uploadPhoto} />
       <Form
         onSubmit={createProfileCounts}
-        validate={FormValidators.SidebarValidator}
+        validate={FormValidator.SidebarValidator}
         render={({ handleSubmit, submitSucceeded }) => (
           <FormWrap
             onSubmit={handleSubmit}
@@ -150,7 +152,6 @@ const EditSidebar = ({
                 initialValue={profileCurrents.feet}
                 placeholder="Feet *"
                 component={TextInput}
-                validate={FormValidators.heightValidate}
                 typeEdit="short"
                 formType="editProfile"
               />

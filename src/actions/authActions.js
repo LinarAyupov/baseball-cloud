@@ -3,9 +3,10 @@ import {
   FETCH_PROFILE_DATA,
   IS_FETCHING,
   UNAUTHORIZED,
+  TOGGLE_EMAIL_USED,
 } from "../reducers/authReducer";
-import ApiServices from "../utils/ApiServices";
-import StorageServices from "../utils/StorageServices";
+import ApiService from "../utils/ApiService";
+import StorageService from "../utils/StorageService";
 
 export const toggleIsFetching = (status) => {
   return {
@@ -36,38 +37,45 @@ const fetchProfileData = ({ data }) => {
   };
 };
 
+const toggleEmailUsed = (status) => {
+  return {
+    type: TOGGLE_EMAIL_USED,
+    payload: { status },
+  };
+};
+
 //-------------------Thunks--------------------
 
 export const singIn = (userData) => {
   return async (dispatch) => {
-    dispatch(toggleIsFetching());
+    dispatch(toggleIsFetching(true));
     try {
-      const { data, headers } = await ApiServices.singIn({ userData });
-      await StorageServices.setHeadersDataToStore({ headers });
+      const { data, headers } = await ApiService.singIn({ userData });
+      await StorageService.setHeadersDataToStore({ headers });
       dispatch(fetchProfileData({ data }));
       dispatch(onChangeAuth());
       dispatch(toggleUnauthorized(false));
-      dispatch(toggleIsFetching());
+      dispatch(toggleIsFetching(false));
     } catch {
       dispatch(toggleUnauthorized(true));
-      dispatch(toggleIsFetching());
+      dispatch(toggleIsFetching(false));
     }
   };
 };
 
 export const singUp = ({ userData }) => {
   return async (dispatch) => {
-    dispatch(toggleIsFetching());
+    dispatch(toggleIsFetching(true));
     try {
-      const { data, headers } = await ApiServices.singUp({ userData });
-      await StorageServices.setHeadersDataToStore({ headers });
+      const { data, headers } = await ApiService.singUp({ userData });
+      await StorageService.setHeadersDataToStore({ headers });
       dispatch(fetchProfileData({ data }));
       dispatch(onChangeAuth());
-      dispatch(toggleUnauthorized(false));
-      dispatch(toggleIsFetching());
+      dispatch(toggleEmailUsed(false));
+      dispatch(toggleIsFetching(false));
     } catch {
-      dispatch(toggleUnauthorized(true));
-      dispatch(toggleIsFetching());
+      dispatch(toggleEmailUsed(true));
+      dispatch(toggleIsFetching(false));
     }
   };
 };

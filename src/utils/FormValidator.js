@@ -61,8 +61,11 @@ class FormValidators {
     if (!value.weight) {
       errors.weight = "Weigth Required";
     }
+    if (value.weight > 350) {
+      errors.weight = "Maximum weight is 350 lbs";
+    }
     if (value.height || value.height > 7) {
-      errors.weight = "Maximum height is 7";
+      errors.height = "Maximum height is 7";
     }
     if (value.inches > 11 || value.inches < 0) {
       errors.inches = "Inches can be from 0 to 11";

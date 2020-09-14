@@ -14,6 +14,7 @@ const TextInput = ({
   icon = "user",
   isShowError = false,
   unauthorized = false,
+  emailUsed = false,
   typeEdit = "",
   formType,
 }) => {
@@ -32,13 +33,19 @@ const TextInput = ({
           {isShowError && meta.error && meta.submitFailed && (
             <ErrorMassage>{meta.error}</ErrorMassage>
           )}
-          {unauthorized && input.type === "email" && (
+          {unauthorized &&
+            input.type === "password" &&
+            meta.submitSucceeded &&
+            !meta.error && (
+              <ErrorMassage>
+                Invalid login credentials. Please try again.
+              </ErrorMassage>
+            )}
+          {emailUsed && input.type === "email" && meta.submitSucceeded && (
             <ErrorMassage>
-              Invalid login credentials. Please try again.
+              Invalid login credentials. Please try again. Email has already
+              been taken.
             </ErrorMassage>
-          )}
-          {unauthorized && input.type === "email" && (
-            <ErrorMassage>Email has already been taken.</ErrorMassage>
           )}
         </InputWrapper>
       ) : (

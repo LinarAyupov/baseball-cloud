@@ -7,7 +7,7 @@ import { Form, Field } from "react-final-form";
 import { InputsWrapper, Forgotten } from "./styled";
 import AuthContainer from "../../commons/AuthContainer";
 import AuthFormHeader from "../../commons/AuthFormHeader";
-import FormValidators from "../../../utils/FormValidators";
+import FormValidator from "../../../utils/FormValidator";
 import TextInput from "../../ui/TextInput";
 import SubmitButton from "../../ui/SubmitButton";
 import Link from "../../ui/Link";
@@ -29,7 +29,7 @@ const LogIn = ({ singIn, isFetching, unauthorized }) => {
             <Field
               name="email"
               type="email"
-              validate={FormValidators.loginFieldRequired}
+              validate={FormValidator.loginFieldRequired}
               placeholder="Email"
               render={TextInput}
               icon="user"
@@ -40,7 +40,7 @@ const LogIn = ({ singIn, isFetching, unauthorized }) => {
               name="password"
               type="password"
               autoComplete="current-password"
-              validate={FormValidators.loginFieldRequired}
+              validate={FormValidator.loginFieldRequired}
               placeholder="Password"
               render={TextInput}
               icon="lock"
@@ -68,8 +68,8 @@ const LogIn = ({ singIn, isFetching, unauthorized }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: getIsFetchingState,
-    unauthorized: getUnauthorizedState,
+    isFetching: getIsFetchingState(state),
+    unauthorized: getUnauthorizedState(state),
   };
 };
 

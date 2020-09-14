@@ -13,6 +13,7 @@ import {
 import { updateFavoriteProfile } from "../../../actions/playersActions";
 import { getProfileState, getPlayersState } from "../../../selectors/selectors";
 import { withRouter } from "react-router-dom";
+import YourAccountMessage from "../YourAccountMessage";
 const PlayerProfile = ({
   getProfileCurrents,
   profileCurrents,
@@ -50,24 +51,28 @@ const PlayerProfile = ({
         showLikeBtn={userId ? true : false}
         updateFavoriteProfile={updateFavoriteProfile}
       />
-      <ContentWrapper>
-        <TopBatting userId={id} topValues={batter_summary} />
-        <RecentReports />
-        <Statistics
-          userId={id}
-          profilePlayer={{
-            first_name,
-            last_name,
-            age,
-            weight,
-            feet,
-            inches,
-            avatar,
-            batting_top_values,
-            position,
-          }}
-        />
-      </ContentWrapper>
+      {!profileCurrents || !first_name || first_name === "" ? (
+        <YourAccountMessage />
+      ) : (
+        <ContentWrapper>
+          <TopBatting userId={id} topValues={batter_summary} />
+          {!userId ? <RecentReports /> : null}
+          <Statistics
+            userId={id}
+            profilePlayer={{
+              first_name,
+              last_name,
+              age,
+              weight,
+              feet,
+              inches,
+              avatar,
+              batting_top_values,
+              position,
+            }}
+          />
+        </ContentWrapper>
+      )}
     </ProfileContainer>
   );
 };

@@ -3,7 +3,7 @@ import {
   FETCH_BATTING_LOG,
 } from "../reducers/battingReducer";
 import { toggleIsFetching } from "./authActions";
-import ApiServices from "../utils/ApiServices";
+import ApiService from "../utils/ApiService";
 
 const fetchBattingSummary = ({ batting_summary }) => {
   return {
@@ -28,7 +28,7 @@ export const getBattingSummary = ({ userId }) => {
   return async (dispatch) => {
     dispatch(toggleIsFetching(true));
     try {
-      const { data } = await ApiServices.getBattingSummary({ userId });
+      const { data } = await ApiService.getBattingSummary({ userId });
       const { batting_summary } = data.data;
       dispatch(fetchBattingSummary({ batting_summary }));
       dispatch(toggleIsFetching(false));
@@ -48,7 +48,7 @@ export const getBattingLog = ({
   return async (dispatch) => {
     dispatch(toggleIsFetching(true));
     try {
-      const { data } = await ApiServices.getBattingLog({
+      const { data } = await ApiService.getBattingLog({
         userId,
         offset,
         count,

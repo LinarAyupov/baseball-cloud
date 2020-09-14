@@ -27,8 +27,7 @@ import {
   getIsFetchingState,
 } from "../../../selectors/selectors";
 import Preloader from "../../ui/Preloader";
-
-import { getOptionName, generateTitle } from "../../../utils/BoardUtils";
+import { getOptionName, generateTitle } from "../../../utils/boardHelper";
 
 const LeaderBoard = ({
   getLeaderboardPlayers,

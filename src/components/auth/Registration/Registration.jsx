@@ -3,7 +3,7 @@ import { Form, Field } from "react-final-form";
 import AuthContainer from "../../commons/AuthContainer";
 import TextInput from "../../ui/TextInput";
 import SubmitButton from "../../ui/SubmitButton";
-import FormValidators from "../../../utils/FormValidators";
+import FormValidator from "../../../utils/FormValidator";
 import {
   TypeButtonsWrapper,
   CheckedIcon,
@@ -17,8 +17,12 @@ import AuthFormFooter from "../../commons/AuthFormFooter/AuthFormFooter";
 import AuthUserType from "../../commons/AuthUserType/AuthUserType";
 import { connect } from "react-redux";
 import { singUp } from "../../../actions/authActions";
+import {
+  getEmailUsedStatus,
+  getIsFetchingState,
+} from "../../../selectors/selectors";
 
-const Registration = ({ singUp, isFetching, unauthorized }) => {
+const Registration = ({ singUp, isFetching, emailUsed }) => {
   const [userType, onChangeUserType] = useState("player");
   const submitRegistration = (value) => {
     const userData = {
@@ -30,7 +34,7 @@ const Registration = ({ singUp, isFetching, unauthorized }) => {
   return (
     <Form
       onSubmit={submitRegistration}
-      validate={FormValidators.confirmValidate}
+      validate={FormValidator.confirmValidate}
       render={({ handleSubmit }) => (
         <AuthContainer>
           <TypeButtonsWrapper>
@@ -57,12 +61,12 @@ const Registration = ({ singUp, isFetching, unauthorized }) => {
             <Field
               name="email"
               type="email"
-              validate={FormValidators.fieldRequired}
+              validate={FormValidator.fieldRequired}
               placeholder="Email"
               render={TextInput}
               icon="user"
               isShowError={true}
-              unauthorized={unauthorized}
+              emailUsed={emailUsed}
               formType="auth"
             />
             <Field
@@ -109,8 +113,8 @@ const Registration = ({ singUp, isFetching, unauthorized }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.authData.isFetching,
-    unauthorized: state.authData.unauthorized,
+    isFetching: getIsFetchingState(state),
+    emailUsed: getEmailUsedStatus(state),
   };
 };
 

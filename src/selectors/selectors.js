@@ -4,6 +4,10 @@ export const getIsFetchingState = (state) => state.authData.isFetching;
 
 export const getUnauthorizedState = (state) => state.authData.unauthorized;
 
+export const getEmailUsedStatus = (state) => state.authData.emailUsed;
+
+export const getHeaderUserData = (state) => state.profileData.headerUserData;
+
 export const getProfileState = (state) => state.profileData.profileCurrents;
 
 export const getSchoolsState = (state) => state.profileData.schools;

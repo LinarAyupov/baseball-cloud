@@ -3,9 +3,10 @@ import {
   FETCH_SCHOOLS,
   FETCH_TEAMS,
   FETCH_FACILITIES,
+  HEADER_USER_DATA,
 } from "../reducers/profileReducer";
 import { toggleIsFetching } from "./authActions";
-import ApiServices from "../utils/ApiServices";
+import ApiService from "../utils/ApiService";
 
 const fetchProfileCurrents = ({ profileCurrent }) => {
   return {
@@ -34,14 +35,25 @@ const fetchFacilities = ({ facilities }) => {
   };
 };
 
+const setHeaderUserData = ({ avatar, first_name, last_name }) => {
+  return {
+    type: HEADER_USER_DATA,
+    payload: { avatar, first_name, last_name },
+  };
+};
+
 //----------------Thunks------------------------------
 
 export const getProfileCurrents = () => {
   return async (dispatch) => {
     try {
-      const { data } = await ApiServices.getProfileCurrents();
+      const { data } = await ApiService.getProfileCurrents();
       const profileCurrent = data.data.current_profile;
       dispatch(fetchProfileCurrents({ profileCurrent }));
+
+      const { avatar, first_name, last_name } = profileCurrent;
+      console.log(avatar);
+      dispatch(setHeaderUserData({ avatar, first_name, last_name }));
     } catch (err) {
       throw err;
     }
@@ -50,7 +62,7 @@ export const getProfileCurrents = () => {
 
 export const getPlayerProfile = ({ id }) => {
   return async (dispatch) => {
-    const { data } = await ApiServices.getPlayerProfile({ id });
+    const { data } = await ApiService.getPlayerProfile({ id });
     const profileCurrent = data.data.profile;
     dispatch(fetchProfileCurrents({ profileCurrent }));
   };
@@ -59,7 +71,7 @@ export const getPlayerProfile = ({ id }) => {
 export const getSchools = ({ searchText }) => {
   return async (dispatch) => {
     try {
-      const data = await ApiServices.getSchoolList({ searchText });
+      const data = await ApiService.getSchoolList({ searchText });
       const { schools } = data.data.data;
       dispatch(fetchSchools(schools));
     } catch (err) {
@@ -71,7 +83,7 @@ export const getSchools = ({ searchText }) => {
 export const getTeams = ({ searchText }) => {
   return async (dispatch) => {
     try {
-      const { data } = await ApiServices.getTeamsList({ searchText });
+      const { data } = await ApiService.getTeamsList({ searchText });
       const { teams } = data.data.teams;
       dispatch(fetchTeams({ teams }));
     } catch (err) {
@@ -83,7 +95,7 @@ export const getTeams = ({ searchText }) => {
 export const getFacilities = ({ searchText }) => {
   return async (dispatch) => {
     try {
-      const { data } = await ApiServices.getFacilities({ searchText });
+      const { data } = await ApiService.getFacilities({ searchText });
       const { facilities } = data.data.facilities;
       dispatch(fetchFacilities({ facilities }));
     } catch (err) {
@@ -96,7 +108,7 @@ export const updateProfile = ({ profileCounts }) => {
   return async (dispatch) => {
     try {
       dispatch(toggleIsFetching(true));
-      const { data } = await ApiServices.updateProfile({ profileCounts });
+      const { data } = await ApiService.updateProfile({ profileCounts });
       const profileCurrent = data.data.update_profile.profile;
       dispatch(fetchProfileCurrents({ profileCurrent }));
       dispatch(toggleIsFetching(false));
@@ -110,7 +122,7 @@ export const uploadPhoto = ({ imageFile }) => {
   return async (dispatch) => {
     try {
       dispatch(toggleIsFetching(true));
-      const response = await ApiServices.uploadPhoto({ imageFile });
+      const response = await ApiService.uploadPhoto({ imageFile });
       if (response) {
         dispatch(toggleIsFetching(false));
       }

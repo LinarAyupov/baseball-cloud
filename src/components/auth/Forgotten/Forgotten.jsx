@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
-import FormValidators from "../../../utils/FormValidators";
+import FormValidator from "../../../utils/FormValidator";
 import AuthContainer from "../../commons/AuthContainer";
 import AuthFormHeader from "../../commons/AuthFormHeader";
 import TextInput from "../../ui/TextInput";
@@ -27,7 +27,7 @@ const Forgotten = () => {
               type="email"
               autoComplete="address-line1"
               placeholder="Email"
-              validate={FormValidators.fieldRequired}
+              validate={FormValidator.fieldRequired}
               render={TextInput}
               icon="user"
               isShowError={true}

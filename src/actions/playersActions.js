@@ -4,7 +4,7 @@ import {
   FETCH_PLAYERS_PROFILES,
 } from "../reducers/playersReducer";
 import { toggleIsFetching } from "./authActions";
-import ApiServices from "../utils/ApiServices";
+import ApiService from "../utils/ApiService";
 
 const fetchPlayers = ({ players }) => {
   return {
@@ -45,7 +45,7 @@ export const getLeaderboardPlayers = ({
       let response = {};
       let players = [];
       if (tab === "batting") {
-        response = await ApiServices.getLeaderboardBatting({
+        response = await ApiService.getLeaderboardBatting({
           type,
           date,
           position,
@@ -57,7 +57,7 @@ export const getLeaderboardPlayers = ({
 
         players = response.data.data.leaderboard_batting.leaderboard_batting;
       } else {
-        response = await ApiServices.getLeaderboardPitching({
+        response = await ApiService.getLeaderboardPitching({
           type,
           date,
           position,
@@ -82,7 +82,7 @@ export const updateFavoriteProfile = ({ id, favorite }) => {
     dispatch(toggleIsFetching(true));
 
     try {
-      const { data } = await ApiServices.updateFavoriteProfile({
+      const { data } = await ApiService.updateFavoriteProfile({
         id,
         favorite,
       });
@@ -108,7 +108,7 @@ export const getPlayersProfiles = ({
   return async (dispatch) => {
     dispatch(toggleIsFetching(true));
     try {
-      const { data } = await ApiServices.getPlayersProfiles({
+      const { data } = await ApiService.getPlayersProfiles({
         profiles_count,
         offset,
         school,

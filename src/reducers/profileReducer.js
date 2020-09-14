@@ -2,9 +2,11 @@ export const FETCH_PROFILE_CURRENTS = "FETCH-PROFILE-CURRENTS";
 export const FETCH_SCHOOLS = "FETCH-SCHOOLS";
 export const FETCH_TEAMS = "FETCH-TEAMS";
 export const FETCH_FACILITIES = "FETCH-FACILITIES";
+export const HEADER_USER_DATA = "HEADER-USER-DATA";
 
 const initialState = {
   profileCurrents: {},
+  headerUserData: {},
   schools: [],
   teams: [],
   facilities: [],
@@ -15,7 +17,7 @@ const initialState = {
     { id: "shortstop", name: "Shortstop" },
   ],
   secondPositions: [
-    { id: "", name: "_" },
+    { id: "", name: "-" },
     { id: "catcher", name: "Catcher" },
     { id: "first_base", name: "First Base" },
     { id: "second_base", name: "Second Base" },
@@ -37,6 +39,16 @@ const actionMap = {
     return {
       ...state,
       profileCurrents: action.payload.profileCurrent,
+    };
+  },
+  [HEADER_USER_DATA]: (state, action) => {
+    return {
+      ...state,
+      headerUserData: {
+        first_name: action.payload.first_name,
+        last_name: action.payload.last_name,
+        avatar: action.payload.avatar,
+      },
     };
   },
   [FETCH_SCHOOLS]: (state, action) => {
