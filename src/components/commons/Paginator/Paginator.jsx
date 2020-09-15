@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Container, Button, NavBtn } from "./styled";
-const Paginator = ({ totalCount, setOffset, count }) => {
+const Paginator = ({ totalCount, setOffset, count, offset }) => {
   const [activePage, setActivePage] = useState(1);
   let pageNumbers = [];
+
   for (let i = 1; i <= Math.ceil(totalCount / count); i++) {
     pageNumbers.push(i);
   }
@@ -34,22 +35,30 @@ const Paginator = ({ totalCount, setOffset, count }) => {
     ));
   };
 
+  console.log(` page numbers length: ${pageNumbers.length}`);
+  console.log(` active page: ${activePage}`);
+
   const nextPage = () => {
     if (activePage < pageNumbers.length) {
       setActivePage(activePage + 1);
-      let offset = (activePage - 1) * count;
+
+      let offset = activePage * count;
+      if (activePage === 1) {
+        offset = activePage * count;
+      }
       setOffset(offset);
     }
   };
   const prevPage = () => {
     if (activePage > 1) {
       setActivePage(activePage - 1);
-      if (activePage === 1) {
-        setOffset(0);
-      } else {
-        let offset = (activePage - 1) * count;
-        setOffset(offset);
+      let offset = (activePage - 2) * count;
+
+      if (activePage === 2) {
+        offset = 0;
       }
+
+      setOffset(offset);
     }
   };
 

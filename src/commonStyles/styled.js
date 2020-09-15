@@ -13,7 +13,7 @@ export const MainContainer = styled.section`
 `;
 
 export const ProfileContainer = styled.div`
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   width: 100%;
   height: 100%;

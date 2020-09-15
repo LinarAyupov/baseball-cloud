@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { withRouter, Route } from "react-router-dom";
 import { MainContainer } from "../../../commonStyles/styled";
-import Header from "../../../layout/Header";
-import Footer from "../../../layout/Footer";
+import Header from "../../layout/Header";
+import Footer from "../../layout/Footer";
 import PlayerProfile from "../PlayerProfile";
 import LeaderBoard from "../LeaderBoard";
 import { connect } from "react-redux";

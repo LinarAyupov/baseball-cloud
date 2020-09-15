@@ -12,9 +12,9 @@ import {
   DropdownLink,
   DropdownItem,
 } from "./styled";
-import DropdownList from "../../components/commons/DropdownList";
-import LogoSvg from "../../components/SvgComponents/logoSvg";
-import DownIcon from "../../components/SvgComponents/DownIcon";
+import DropdownList from "../../commons/DropdownList";
+import LogoSvg from "../../SvgComponents/logoSvg";
+import DownIcon from "../../SvgComponents/DownIcon";
 import { withRouter } from "react-router-dom";
 
 const Header = ({

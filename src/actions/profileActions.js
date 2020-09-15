@@ -50,9 +50,7 @@ export const getProfileCurrents = () => {
       const { data } = await ApiService.getProfileCurrents();
       const profileCurrent = data.data.current_profile;
       dispatch(fetchProfileCurrents({ profileCurrent }));
-
       const { avatar, first_name, last_name } = profileCurrent;
-      console.log(avatar);
       dispatch(setHeaderUserData({ avatar, first_name, last_name }));
     } catch (err) {
       throw err;

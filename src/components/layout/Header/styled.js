@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Link from "../../components/ui/Link";
+import Link from "../../ui/Link";
 export const HeaderWrapper = styled.header`
   padding: 8px;
   background: #fff;

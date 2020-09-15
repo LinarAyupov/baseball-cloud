@@ -7,8 +7,8 @@ import Privacy from "../Legal/Privacy";
 import LogIn from "../LogIn";
 import Forgotten from "../Forgotten";
 import Registration from "../Registration/Registration";
-import Header from "../../../layout/Header";
-import Footer from "../../../layout/Footer";
+import Header from "../../layout/Header";
+import Footer from "../../layout/Footer";
 const AuthPage = ({ isAuth, history }) => {
   useEffect(() => {
     if (!isAuth) {

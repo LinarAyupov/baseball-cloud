@@ -55,6 +55,7 @@ const Network = ({
   const [favorite, setFavorite] = useState(null);
   const [profilesCount, setProfilesCount] = useState(10);
   const [offset, setOffset] = useState(0);
+  console.log(offset);
   useEffect(() => {
     getPlayersProfiles({
       profiles_count: parseInt(profilesCount),
@@ -187,6 +188,7 @@ const Network = ({
       {totalCount > 0 ? (
         <Paginator
           setOffset={setOffset}
+          offset={offset}
           totalCount={totalCount}
           count={profilesCount}
         />
