@@ -6,7 +6,7 @@ export const HEADER_USER_DATA = "HEADER-USER-DATA";
 
 const initialState = {
   profileCurrents: {},
-  headerUserData: {},
+  headerUserData: { first_name: "", last_name: "", avatar: "" },
   schools: [],
   teams: [],
   facilities: [],
